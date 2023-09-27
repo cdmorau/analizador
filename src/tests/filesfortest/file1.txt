@@ -1,0 +1,10 @@
+// This code looks really strange
+   lea y escriba nene
+
+   // Even this code too and is always the same
+         Lea Y Escriba Nene // perfect
+   
+   /* I don´t know what to think about
+   this language
+  */
+   :v

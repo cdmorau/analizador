@@ -1,0 +1,57 @@
+<cadena,3,1>
+<tkn_opening_bra,3,7>
+<tkn_integer,30,3,8>
+<tkn_closing_bra,3,10>
+<id,nombre,3,12>
+<tkn_comma,3,18>
+<id,apellido,3,19>
+<procedimiento,4,1>
+<id,pedir_datos,4,15>
+<tkn_opening_par,4,26>
+<var,4,27>
+<cadena,4,31>
+<tkn_opening_bra,4,37>
+<tkn_integer,30,4,38>
+<tkn_closing_bra,4,40>
+<id,nombre,4,42>
+<tkn_comma,4,48>
+<var,4,49>
+<cadena,4,53>
+<tkn_opening_bra,4,59>
+<tkn_integer,30,4,60>
+<tkn_closing_bra,4,62>
+<id,apellido,4,64>
+<tkn_closing_par,4,72>
+<inicio,7,5>
+<escriba,8,9>
+<tkn_str,Ingresar el nombre: ,8,17>
+<lea,9,9>
+<id,nombre,9,13>
+<escriba,10,9>
+<tkn_str,Ingresar el apellido: ,10,17>
+<lea,11,9>
+<id,apellido,11,13>
+<fin,12,5>
+<inicio,13,1>
+<id,nombre,14,5>
+<tkn_assign,14,11>
+<tkn_str,No hay cambios en nombre,14,13>
+<id,apellido,15,5>
+<tkn_assign,15,13>
+<tkn_str,No hay cambios en apellido,15,15>
+<llamar,16,5>
+<id,pedir_datos,16,12>
+<tkn_opening_par,16,23>
+<id,nombre,16,24>
+<tkn_comma,16,30>
+<id,apellido,16,31>
+<tkn_closing_par,16,39>
+<escriba,17,5>
+<tkn_str,Nombre completo ,17,13>
+<tkn_comma,17,31>
+<id,nombre,17,32>
+<tkn_comma,17,38>
+<tkn_str, ,17,39>
+<tkn_comma,17,42>
+<id,apellido,17,43>
+<fin,18,1>

@@ -1,0 +1,4 @@
+my_Var1 <- 02
+my_Var2 <- -3.145
+string <- "Hello world" 
+char <- 'a'

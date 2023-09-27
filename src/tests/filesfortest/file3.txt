@@ -1,0 +1,10 @@
+ ESCRIBA escriba 
+
+Escriba Mi_Variable
+
+MI_VARIABLE
+
+MI_Variable
+
+mIENtras MIENTRAS mientras
+"Una cadena de Texto"

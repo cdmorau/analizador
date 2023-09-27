@@ -1,0 +1,10 @@
+<escriba,1,2>
+<escriba,1,10>
+<escriba,3,1>
+<id,mi_variable,3,9>
+<id,mi_variable,5,1>
+<id,mi_variable,7,1>
+<mientras,9,1>
+<mientras,9,10>
+<mientras,9,19>
+<tkn_str,Una cadena de Texto,10,1>

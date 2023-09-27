@@ -1,0 +1,35 @@
+real MyOwnReal
+entero _MyOwnInteger
+
+// Este caso evalua la definición de funciones
+// El código es correcto tanto a nivel léxico como a nivel sintáctico
+
+Funcion MyRandomFunction(real n1,real n2): real
+
+   inicio
+
+       retorne n1+n2
+
+   fin
+   
+   
+
+FUNCION My_2_Random_Function(entero n1,entero n2): real
+
+   inicio
+
+       retorne n1+n2
+
+   fin
+   
+
+inicio
+
+    myOWNreal<-MyRANDOMfunction(2.0,14.789)
+    _MyOwnInteger<-my_2_random_function(6,3)
+    esCRiba myOWNreal
+    llamar Nueva_LInea
+    escribA _MyOwnInteger
+
+
+fin

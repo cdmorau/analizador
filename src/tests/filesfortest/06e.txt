@@ -1,0 +1,20 @@
+<lea,4,1>
+<y,4,5>
+<escriba,4,7>
+<para,4,15>
+<id,aprender,4,20>
+<var,6,1>
+<y,6,5>
+<id,variable,6,7>
+<si,6,16>
+<id,son,6,19>
+<id,diferentes,6,23>
+<id,en,6,34>
+<id,lpp,6,37>
+<id,variable,8,1>
+<tkn_assign,8,10>
+<tkn_char,a,8,13>
+<id,lpp,10,1>
+<tkn_assign,10,5>
+<tkn_str,Un buen lenguaje para empezar a programar,10,8>
+>>> Error lexico (linea: 12, posicion: 1)

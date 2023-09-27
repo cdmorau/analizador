@@ -1,0 +1,18 @@
+// Este caso fue seleccionado directamente del manual de referencia
+
+cadena[30] nombre,apellido
+procedimiento pedir_datos(var cadena[30] nombre,var cadena[30] apellido)
+
+/* la palabra reservada var crea una referencia entre la variable global del programa y la variable local del procedimiento del mismo nombre, en este caso nombre y apellido */
+    inicio
+        escriba "Ingresar el nombre: "
+        lea nombre
+        Escriba "Ingresar el apellido: "
+        lea apellido
+    fin
+inicio
+    nombre<-"No hay cambios en nombre"
+    apellido<-"No hay cambios en apellido"
+    llamar pedir_datos(nombre,apellido)
+    escriba "Nombre completo ",nombre," ",apellido
+fin

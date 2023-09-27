@@ -1,0 +1,13 @@
+<id,arriba,4,1>
+<tkn_period,4,7>
+<id,abajo,4,8>
+<tkn_neq,4,13>
+<tkn_real,456.7,4,15>
+<y,4,21>
+<id,derec,4,23>
+<tkn_equal,4,28>
+<id,izquierda,4,29>
+<tkn_colon,4,38>
+<escriba,6,9>
+<tkn_str,Uy, verdad que aquí no hay punto y coma :v,6,17>
+>>> Error lexico (linea: 6, posicion: 62)

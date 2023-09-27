@@ -1,0 +1,3 @@
+si x >= 20 entonces
+     escriba "Large";
+fin si

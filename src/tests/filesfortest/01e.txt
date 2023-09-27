@@ -1,0 +1,11 @@
+<entero,3,1>
+<real,3,8>
+<verdadero,5,1>
+<falso,5,11>
+<mientras,5,17>
+<haga,5,26>
+<sino,7,1>
+<si,7,6>
+<hasta,7,9>
+<entonces,7,15>
+<caso,7,24>

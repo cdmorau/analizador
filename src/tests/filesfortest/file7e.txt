@@ -1,0 +1,7 @@
+<id,_f,1,1>
+<tkn_real,4.559,1,4>
+<tkn_neq,1,9>
+<tkn_integer,6,1,11>
+<tkn_equal,1,12>
+<tkn_str,1,1,13>
+>>> Error lexico (linea: 1, posicion: 16)

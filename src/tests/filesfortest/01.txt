@@ -1,0 +1,7 @@
+// Este caso evalua palabras reservadas básicas
+
+entero real
+
+verdadero falso MIENTRAS Haga
+
+sino si hasta enTONCES caso

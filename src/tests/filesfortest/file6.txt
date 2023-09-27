@@ -1,0 +1,6 @@
+entero mY_integer
+inicio
+
+   My_Integer<-5;
+
+fin

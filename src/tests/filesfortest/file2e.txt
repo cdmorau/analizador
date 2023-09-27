@@ -1,0 +1,11 @@
+<lea,1,1>
+<entero,1,5>
+<o,1,12>
+<real,1,14>
+<y,3,4>
+<escriba,4,2>
+<nueva_linea,4,10>
+<haga,4,22>
+<mientras,6,4>
+<repita,6,13>
+<entonces,8,9>

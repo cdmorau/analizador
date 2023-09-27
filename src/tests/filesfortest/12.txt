@@ -1,0 +1,6 @@
+// Este caso se centra en otro error léxico muy común, el punto y coma
+// Error común para todos aquellos familiarizados con Java y C/C++
+
+Arriba.abajo<>456.7 y deREC=izquierda:
+
+        escriba "Uy, verdad que aquí no hay punto y coma :v";

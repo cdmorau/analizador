@@ -1,0 +1,10 @@
+<lea,2,4>
+<y,2,8>
+<escriba,2,10>
+<id,nene,2,18>
+<lea,5,10>
+<y,5,14>
+<escriba,5,16>
+<id,nene,5,24>
+<tkn_colon,10,4>
+<id,v,10,5>

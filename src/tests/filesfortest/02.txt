@@ -1,0 +1,22 @@
+entero Vari
+entero i
+
+INICIO
+
+    para VARI<-28 hasta 200 haga
+
+        escriba I
+        llamar NUEVA_LINEA
+
+        i<-0
+        mientras i<=5 haga
+
+            escribA "Esta instrucción se ejecuta 5 veces "
+            LLamar nueva_LINEA
+            i<-i+1
+            
+    fin mientraS
+    
+    Fin PARA
+
+fin

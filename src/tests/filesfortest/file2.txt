@@ -1,0 +1,8 @@
+lea entero o real
+
+   y
+ Escriba nueva_linea haga
+
+   mientRAs repita
+
+        Entonces

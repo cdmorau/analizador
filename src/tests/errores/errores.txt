@@ -1,0 +1,25 @@
+//Error de simbolo
+dakjbda231 #
+ 
+
+//Error de comillas
+"Hola
+'h
+
+//Error de tipo de comillas
+'hola'
+"i"
+
+
+//nombres de variables erroneos
+djksñ
+däfjs
+fdádo
+43dadá
+cabçd
+
+
+
+
+
+

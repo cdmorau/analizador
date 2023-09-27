@@ -1,0 +1,7 @@
+<entero,1,1>
+<id,my_integer,1,8>
+<inicio,2,1>
+<id,my_integer,4,4>
+<tkn_assign,4,14>
+<tkn_integer,5,4,16>
+>>> Error lexico (linea: 4, posicion: 17)

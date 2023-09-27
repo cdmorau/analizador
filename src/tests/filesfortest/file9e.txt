@@ -1,0 +1,8 @@
+<si,1,1>
+<id,x,1,4>
+<tkn_geq,1,6>
+<tkn_integer,20,1,9>
+<entonces,1,12>
+<escriba,2,6>
+<tkn_str,Large,2,14>
+>>> Error lexico (linea: 2, posicion: 21)

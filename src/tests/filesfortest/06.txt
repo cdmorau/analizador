@@ -1,0 +1,13 @@
+// Este caso evalua un error léxico referente a un comentario en otros lenguajes
+// Un error léxico muy común para aquellos familiarizados con python
+
+lea y escriba para aprender
+
+var y variable si son diferentes en LPP
+
+variable <- 'a'
+
+LPP <- "Un buen lenguaje para empezar a programar"
+
+# Uy así no se comentaba en este lenguaje *smile in pain*
+

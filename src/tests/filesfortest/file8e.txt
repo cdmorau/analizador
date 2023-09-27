@@ -1,0 +1,7 @@
+<id,my_var1,1,1>
+<tkn_assign,1,9>
+<tkn_integer,05,1,12>
+<id,my_var_2,2,1>
+<tkn_assign,2,10>
+<tkn_minus,2,13>
+<tkn_real,3.330,2,14>
