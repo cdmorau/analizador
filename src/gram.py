@@ -1,8 +1,0 @@
-"abrir":"abrir",
-"lectura":"lectura",
-"archivo":"archivo", 
-"secuencial":"secuencial", 
-"cerrar":"cerrar", 
-"escritura":"escritura",
-"leer":"leer",
-"escribir":"escribir",
