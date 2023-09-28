@@ -1,0 +1,259 @@
+
+import re 
+import json
+from gramaticas.gramaticas import *
+class predicciones:
+    def __init__(self,gram,inicio):
+        self.inicio = inicio
+        self.gram = self.traducir(gram)
+        self.primerosNoTerminales = self.primerosAll()
+        self.siguientesNoTerminales = self.siguientesAll()
+        self.prediccionNoTerminales = self.prediccionAll()
+   
+    def separar(self,cadena):
+        # Usamos una expresión regular para separar las mayúsculas de las minúsculas
+        partes = re.findall(r'[A-Z]|[a-z]+', cadena)
+        
+        # Concatenamos las mayúsculas individuales y las cadenas de minúsculas
+        resultado = []
+        buffer_mayusculas = ""
+        
+        for parte in partes:
+            if parte.isupper():
+                buffer_mayusculas += parte
+            else:
+                if buffer_mayusculas:
+                    resultado.extend(list(buffer_mayusculas))
+                    buffer_mayusculas = ""
+                resultado.append(parte)
+        
+        if buffer_mayusculas:
+            resultado.extend(list(buffer_mayusculas))
+        
+        return resultado
+    
+    def traducir(self,gram):
+        for k in gram.keys():
+
+            for i in range(len(gram.get(k))) :
+                if gram.get(k)[i] == 'ε':
+                    gram.get(k)[i]=['ε']
+                else:
+                    gram.get(k)[i]=self.separar( gram.get(k)[i] )    
+                
+        return gram
+    
+    def nodo_has_empty(self,nodoNoTerminal):
+        producciones= self.gram.get(nodoNoTerminal)
+
+        for p in producciones:
+            if 'ε' in p:
+                
+                return True
+
+            mayusculas= True
+            for cadena in p:
+                if cadena.islower():
+                    mayusculas=False
+            if mayusculas:
+                vacio=True
+                for cadena in p:
+                    if self.nodo_has_empty(cadena):
+                        continue
+                    else:
+                        vacio = False
+                if vacio:
+                    return True     
+          
+        return False
+          
+    def primeros(self,produccion,noTerminal):
+        
+        conjuntoPrimeros=set()
+        
+        has_empty = self.nodo_has_empty(noTerminal)
+
+        #Si el elemento es vacio añado el vacio
+        if produccion[0] =='ε':
+            conjuntoPrimeros.add(produccion[0])
+        elif produccion[0].islower():
+            
+            conjuntoPrimeros.add(produccion[0])
+        #Si el elemento es un caracter en mayusculas
+        elif produccion[0].isupper():
+            
+            for nodo in produccion:
+                #En caso de encontrar recursión
+                if nodo==noTerminal:
+                    if has_empty==True:
+                        continue
+                    else:
+                        break
+                
+                if nodo.isupper():   
+                    
+                    #Calculo el conjunto de primeros del nodo que ya comprobé es no terminal
+                    primerosNoTerminal = self.primerosNodo(nodo)                       
+                    #Descarto la cadena vacia
+                    primerosNoTerminal.discard('ε')
+                    #Uno ambos conjuntos
+                    conjuntoPrimeros.update(primerosNoTerminal) 
+                    #Si la cadena vacia no está en el conjunto de primeros de dicho nodo rompo el ciclo porque ya encontre un nodo con todos los primeros terminales
+                    if self.nodo_has_empty(nodo)==False: 
+                        break
+                
+                if nodo.islower():
+                    conjuntoPrimeros.add(nodo)
+                    break
+                    
+        return conjuntoPrimeros  
+                              
+    def primerosNodo(self,nodoNoTerminal):
+        conjuntoPrimeros=set()
+        listaProduccionesTerminal = self.gram.get(nodoNoTerminal)
+        
+        for produccion in listaProduccionesTerminal:
+            conjuntoPrimeros.update(self.primeros(produccion,nodoNoTerminal))
+        
+        return conjuntoPrimeros
+                    
+    def primerosAll(self):
+        conjuntosPrimeros = {}
+        for k in self.gram.keys():
+            conjuntosPrimeros[k]=self.primerosNodo(k)
+        return conjuntosPrimeros
+    
+    def siguientes(self,produccion,nodoNoTerminal,nodo_busqueda_siguientes):
+        #En este caso la producción se mira aislada y el nodoNoTerminal no es necesariamente el asociado a la producción
+        conjuntoSiguientes=set()
+        
+        if nodo_busqueda_siguientes== self.inicio:
+            conjuntoSiguientes.add('$')    
+        
+        for indice_nodo in range(len(produccion)):
+            #Si encuentro una coincidencia en la producción con el NodoNoTerminal
+            if produccion[indice_nodo]==nodo_busqueda_siguientes:
+                
+                #En caso de encontrar el nodoNoTerminal como ultimo termino de la producción particular
+                if indice_nodo == len(produccion)-1:
+                    #En este caso se agrega el conjunto de siguientes de la producción particular
+                    conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal))
+                    
+
+                
+                elif indice_nodo < len(produccion)-1:
+                    nodo_siguiente = produccion[indice_nodo+1]
+                    if nodo_siguiente.islower():
+                        
+                        conjuntoSiguientes.add(nodo_siguiente)
+                    
+                        
+                    elif nodo_siguiente.isupper():
+                        #Si encuentro en el siguiente nodo un nodo no terminal, al conjunto de siguientes se agregan el conjunto de primeros del nodo encontrado
+                        conjuntoSiguientes.update(self.primerosNoTerminales[nodo_siguiente])
+                        if self.nodo_has_empty(nodo_siguiente):
+                            #Elimino la cadena vacia del conjunto, ya que debio agregarse en el conjunto de primeros
+                            conjuntoSiguientes.discard('ε')
+                            #Determinar si el nodo siguiente al siguiente existe, si no existe se agregan los siguientes del nodo no terminal actual
+                            if indice_nodo== len(produccion)-2:
+                                conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal))
+                            #En en caso de que exista el nodo siguiente al siguiente
+                            #Se calcula ahora con la función siguientes una producción que inicie con el nodo al que le estamos buscando los siguientes
+                            #Y que continue con la misma producción cortada desde el nodo siguiente al siguiente
+                            else:
+                                nueva_produccion=[nodo_busqueda_siguientes] 
+                                nueva_produccion= nueva_produccion  +  produccion[indice_nodo+2  :  len(produccion)]
+                                conjuntoSiguientes.update(self.siguientes(nueva_produccion,nodoNoTerminal,nodo_busqueda_siguientes))
+                            
+
+        return conjuntoSiguientes
+    
+    def siguientesNodo(self,nodo_busqueda_S):
+        conjuntoSiguientes=set()
+        
+        
+        for nodoNoTerminal in self.gram.keys():
+            
+            for produccion in self.gram[nodoNoTerminal]:
+                
+                conjuntoSiguientes.update(self.siguientes(produccion,nodoNoTerminal,nodo_busqueda_S))
+        
+        return conjuntoSiguientes     
+    
+    def siguientesAll(self):
+        conjuntosSiguientes = {}
+        for nodoNoTerminal in self.gram.keys():
+            conjuntosSiguientes[nodoNoTerminal]=self.siguientesNodo(nodoNoTerminal)
+        return conjuntosSiguientes
+    
+    def prediccion(self,produccion,nodoNoTerminal):
+        
+        conjuntoPrediccion=set()
+        
+        if produccion[0]=='ε':
+            conjuntoPrediccion.update(self.siguientesNoTerminales[nodoNoTerminal])
+        
+        elif produccion[0].islower():
+            conjuntoPrediccion.add(produccion[0])
+        
+        elif produccion[0].isupper():
+            conjuntoPrediccion.update(self.primerosNoTerminales[produccion[0]])
+            conjuntoPrediccion.discard('ε')
+            
+            
+            if self.nodo_has_empty(produccion[0]):
+                
+                if produccion[1:len(produccion)] == []:
+                    conjuntoPrediccion.update(self.siguientesNoTerminales[nodoNoTerminal])
+                else:
+                    
+                    conjuntoPrediccion.update(self.prediccion(produccion[1:len(produccion)],nodoNoTerminal))
+        return conjuntoPrediccion
+    
+    def prediccionAll(self):
+        conjuntosPrediccion = {}
+        
+        for nodoNoTerminal in self.gram.keys():
+            
+            for produccion in self.gram[nodoNoTerminal]:
+                
+                conjuntosPrediccion[nodoNoTerminal+" => "+''.join(produccion)] = self.prediccion(produccion,nodoNoTerminal)
+        
+        return conjuntosPrediccion
+    
+
+class editorjson:
+    def leerGramatica(self,nombre):
+        # Leemos el contenido del archivo JSON.
+        with open('nombre.json', 'r') as f:
+            cadena_json = f.read()
+
+        # Convertimos la cadena JSON a un diccionario.
+        gramatica = json.loads(cadena_json)
+
+        # Imprimimos el diccionario.
+        print(gramatica)
+    def escribirGramatica(self,diccionarioGramatica):
+        cadena_json = json.dumps(diccionarioGramatica)
+        # Guardamos la cadena JSON en un archivo.
+        with open('src/gramaticas/gramatica.json', 'w') as f:
+            f.write(cadena_json)
+
+
+p= predicciones(gramatica,'S')
+
+print("Primeros")
+print(p.primerosNoTerminales) 
+print("Siguientes")
+print(p.siguientesNoTerminales) 
+print("Predicciones")
+print(p.prediccionNoTerminales) 
+
+
+        
+
+
+
+
+
+
