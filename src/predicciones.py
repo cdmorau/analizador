@@ -1,7 +1,9 @@
 
 import re 
-import json
+import pandas as pd
 from gramaticas.gramaticas import *
+
+
 class predicciones:
     def __init__(self,gram,inicio):
         self.inicio = inicio
@@ -123,7 +125,9 @@ class predicciones:
             conjuntosPrimeros[k]=self.primerosNodo(k)
         return conjuntosPrimeros
     
-    def siguientes(self,produccion,nodoNoTerminal,nodo_busqueda_siguientes):
+    
+    
+    def siguientes(self,produccion,nodoNoTerminal,nodo_busqueda_siguientes,noterminalesContenidos):
         #En este caso la producción se mira aislada y el nodoNoTerminal no es necesariamente el asociado a la producción
         conjuntoSiguientes=set()
         
@@ -136,8 +140,16 @@ class predicciones:
                 
                 #En caso de encontrar el nodoNoTerminal como ultimo termino de la producción particular
                 if indice_nodo == len(produccion)-1:
-                    #En este caso se agrega el conjunto de siguientes de la producción particular
-                    conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal))
+                    if (nodoNoTerminal not in noterminalesContenidos):
+                        #En este caso se agrega el conjunto de siguientes de la producción particular
+                        noterminalesContenidos.append(nodoNoTerminal,)
+                        
+                        conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal,noterminalesContenidos))
+                        print (conjuntoSiguientes,nodo_busqueda_siguientes)
+                        
+                    elif self.nodo_has_empty(nodoNoTerminal):
+                        continue
+                    
                     
 
                 
@@ -156,34 +168,47 @@ class predicciones:
                             conjuntoSiguientes.discard('ε')
                             #Determinar si el nodo siguiente al siguiente existe, si no existe se agregan los siguientes del nodo no terminal actual
                             if indice_nodo== len(produccion)-2:
-                                conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal))
+                                if (nodoNoTerminal not in noterminalesContenidos):
+                                    #En este caso se agrega el conjunto de siguientes de la producción particular
+                                    noterminalesContenidos.append(nodoNoTerminal)
+                                    conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal,noterminalesContenidos))
+                                elif self.nodo_has_empty(nodoNoTerminal):
+                                    continue
+                                
                             #En en caso de que exista el nodo siguiente al siguiente
                             #Se calcula ahora con la función siguientes una producción que inicie con el nodo al que le estamos buscando los siguientes
                             #Y que continue con la misma producción cortada desde el nodo siguiente al siguiente
                             else:
                                 nueva_produccion=[nodo_busqueda_siguientes] 
                                 nueva_produccion= nueva_produccion  +  produccion[indice_nodo+2  :  len(produccion)]
-                                conjuntoSiguientes.update(self.siguientes(nueva_produccion,nodoNoTerminal,nodo_busqueda_siguientes))
+                                conjuntoSiguientes.update(self.siguientes(nueva_produccion,nodoNoTerminal,nodo_busqueda_siguientes,noterminalesContenidos))
                             
 
         return conjuntoSiguientes
     
-    def siguientesNodo(self,nodo_busqueda_S):
-        conjuntoSiguientes=set()
+    def siguientesNodo(self,nodo_busqueda_S,noTerminalesContenidos):
         
+        
+        conjuntoSiguientes=set()
         
         for nodoNoTerminal in self.gram.keys():
             
             for produccion in self.gram[nodoNoTerminal]:
                 
-                conjuntoSiguientes.update(self.siguientes(produccion,nodoNoTerminal,nodo_busqueda_S))
+                conjuntoSiguientes.update(self.siguientes(produccion,nodoNoTerminal,nodo_busqueda_S,noTerminalesContenidos))
+        
+        
         
         return conjuntoSiguientes     
     
     def siguientesAll(self):
+        #Revisa los nodos no terminales ya almacenados
+        
         conjuntosSiguientes = {}
         for nodoNoTerminal in self.gram.keys():
-            conjuntosSiguientes[nodoNoTerminal]=self.siguientesNodo(nodoNoTerminal)
+            noTerminalesContenidos=[]
+            conjuntosSiguientes[nodoNoTerminal]=self.siguientesNodo(nodoNoTerminal,noTerminalesContenidos)
+            
         return conjuntosSiguientes
     
     def prediccion(self,produccion,nodoNoTerminal):
@@ -221,33 +246,44 @@ class predicciones:
         
         return conjuntosPrediccion
     
+    def imprimir(self):
+        
+        # Convierte los conjuntos en listas
+        data_modificado_primeros = {key: list(value) for key, value in self.primerosNoTerminales.items()}
+        data_modificado_siguientes = {key: list(value) for key, value in self.siguientesNoTerminales.items()}
+        data_modificado_prediccion = {key: list(value) for key, value in self.prediccionNoTerminales.items()}
 
-class editorjson:
-    def leerGramatica(self,nombre):
-        # Leemos el contenido del archivo JSON.
-        with open('nombre.json', 'r') as f:
-            cadena_json = f.read()
+        
+        # Construimos el pandas.
+        dfprimeros = pd.DataFrame([data_modificado_primeros])
+        dfsiguientes = pd.DataFrame([data_modificado_siguientes])
+        dfprediccion = pd.DataFrame([data_modificado_prediccion]).transpose()
+        
+        
+        dfprediccion.columns = ['PREDICCION']
+        nombres_filas = ['PRIMEROS', 'SIGUIENTES']
+        prim_seg =pd.concat([dfprimeros,dfsiguientes])
+        prim_seg.index=nombres_filas
+        
+        
+        
+        with open('src/prediccion/prediccion.txt', 'w', encoding="utf-8") as f:
+            f.write(dfprediccion.to_string())
+            f.write('\n'*5)
+            f.write(prim_seg.transpose().to_string())
+            
+        
+            
+        
 
-        # Convertimos la cadena JSON a un diccionario.
-        gramatica = json.loads(cadena_json)
+        
 
-        # Imprimimos el diccionario.
-        print(gramatica)
-    def escribirGramatica(self,diccionarioGramatica):
-        cadena_json = json.dumps(diccionarioGramatica)
-        # Guardamos la cadena JSON en un archivo.
-        with open('src/gramaticas/gramatica.json', 'w') as f:
-            f.write(cadena_json)
+p= predicciones(gramatica2,'S')
 
+p.imprimir()
 
-p= predicciones(gramatica,'S')
+print(p.siguientesNodo('B',[]),"NodoB")
 
-print("Primeros")
-print(p.primerosNoTerminales) 
-print("Siguientes")
-print(p.siguientesNoTerminales) 
-print("Predicciones")
-print(p.prediccionNoTerminales) 
 
 
         

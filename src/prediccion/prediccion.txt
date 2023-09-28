@@ -1,0 +1,21 @@
+                                     PREDICCION
+S => ABuno      [cinco, cuatro, dos, tres, uno]
+A => dosB                                 [dos]
+A => ε         [cinco, cuatro, tres, seis, uno]
+B => CD                         [cinco, cuatro]
+B => tres                                [tres]
+B => ε         [cinco, cuatro, tres, seis, uno]
+C => cuatroAB                          [cuatro]
+C => cinco                              [cinco]
+D => seis                                [seis]
+D => ε         [cinco, cuatro, tres, seis, uno]
+
+
+
+
+                          PRIMEROS                        SIGUIENTES
+S  [cinco, cuatro, tres, dos, uno]                               [$]
+A                         [dos, ε]  [cuatro, tres, cinco, seis, uno]
+B         [cinco, cuatro, tres, ε]  [cinco, cuatro, tres, seis, uno]
+C                  [cinco, cuatro]  [cinco, cuatro, tres, seis, uno]
+D                        [seis, ε]  [cinco, cuatro, tres, seis, uno]
