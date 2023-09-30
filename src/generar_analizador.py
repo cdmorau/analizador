@@ -76,21 +76,31 @@ class generarCodigoAnalizador:
     def generarCodigoGeneral(self):
         codigo=[]
         inicio=self.elementos_gramatica.inicio 
-        
+        codigo.append("import sys")
+        codigo.append("from src.gramar2 import *")
+        codigo.append(" ")
+        codigo.append("def errorSintaxis(conjunto):")
+        codigo.append("    return(conjunto)")
+        codigo.append(" ")
         codigo.append("def emparejar(tknEsperado):")
         codigo.append("    if ( token == tknEsperado ):")
         codigo.append("        token= lexico.getNextToken()")
         codigo.append("    else:")
         codigo.append("        errorSintaxis([tknEsperado])")
+        
 
         for nodoNoTerminal in self.elementos_gramatica.gram.keys():
+            codigo.append(" ")
             codigo=codigo+self.generar_funcion_nodo_no_terminal(nodoNoTerminal)
+            codigo.append(" ")
+
         
         codigo.append("if __name__ == \"__main__\":")
+        codigo.append("    lexico=Lexer(sys.stdin.readlines())")
         codigo.append("    token= lexico.getNextToken()")
         codigo.append("    "+inicio+"()")
-        codigo.append("    if (token != TOKFinArchivo ):")
-        codigo.append("        errorSintaxis([TOKFinArchivo])")
+        codigo.append("    if (token != \"FINAL ARCHIVO\" ):")
+        codigo.append("        errorSintaxis([\"FINAL ARCHIVO\"])")
         
         with open('src/analizadorSintactico.py', 'w', encoding="utf-8") as f:
             for linea in codigo:

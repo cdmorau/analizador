@@ -1,36 +1,51 @@
+import sys
+from src.gramar2 import *
+ 
+def errorSintaxis(conjunto):
+    return(conjunto)
+ 
 def emparejar(tknEsperado):
     if ( token == tknEsperado ):
         token= lexico.getNextToken()
     else:
         errorSintaxis([tknEsperado])
+ 
 def S():
-    if( ( token() == "$" ) or ( token() == "dos" ) or ( token() == "cuatro" ) or ( token() == "seis" ) ):
+    if( ( token() == "dos" ) or ( token() == "seis" ) or ( token() == "cuatro" ) or ( token() == "$" ) ):
         A()
         B()
         C()
-    elif( ( token() == "cuatro" ) or ( token() == "tres" ) or ( token() == "uno" ) ):
+    elif( ( token() == "uno" ) or ( token() == "cuatro" ) or ( token() == "tres" ) ):
         D()
         E()
-    else: errorSintaxis( [ "$","tres","uno","dos","cuatro","seis" ] )
+    else: errorSintaxis( [ "uno","dos","seis","tres","cuatro","$" ] )
+ 
+ 
 def A():
     if( ( token() == "dos" ) ):
         emparejar("dos")
         B()
         emparejar("tres")
-    else: errorSintaxis( [ "$","cuatro","cinco","dos","tres","seis" ] )
+    else: errorSintaxis( [ "dos","seis","tres","cinco","cuatro","$" ] )
+ 
+ 
 def B():
     if( ( token() == "cuatro" ) ):
         B()
         emparejar("cuatro")
         C()
         emparejar("cinco")
-    else: errorSintaxis( [ "$","tres","cinco","cuatro","seis" ] )
+    else: errorSintaxis( [ "seis","tres","cinco","cuatro","$" ] )
+ 
+ 
 def C():
     if( ( token() == "seis" ) ):
         emparejar("seis")
         A()
         B()
-    else: errorSintaxis( [ "$","seis","cinco" ] )
+    else: errorSintaxis( [ "seis","$","cinco" ] )
+ 
+ 
 def D():
     if( ( token() == "uno" ) ):
         emparejar("uno")
@@ -38,13 +53,17 @@ def D():
         E()
     elif( ( token() == "cuatro" ) or ( token() == "tres" ) ):
         B()
-    else: errorSintaxis( [ "cuatro","tres","uno" ] )
+    else: errorSintaxis( [ "uno","cuatro","tres" ] )
+ 
+ 
 def E():
     if( ( token() == "tres" ) ):
         emparejar("tres")
     else: errorSintaxis( [ "tres" ] )
+ 
 if __name__ == "__main__":
+    lexico=Lexer(sys.stdin.readlines())
     token= lexico.getNextToken()
     S()
-    if (token != TOKFinArchivo ):
-        errorSintaxis([TOKFinArchivo])
+    if (token != "FINAL ARCHIVO" ):
+        errorSintaxis(["FINAL ARCHIVO"])

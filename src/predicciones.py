@@ -15,7 +15,7 @@ class predicciones:
    
     def separar(self,cadena):
         # Usamos una expresión regular para separar las mayúsculas de las minúsculas
-        partes = re.findall(r'[A-Z]|[a-z]+', cadena)
+        partes = re.findall(r'[A-Z]|[a-z_]+', cadena)
         
         # Concatenamos las mayúsculas individuales y las cadenas de minúsculas
         resultado = []
@@ -48,17 +48,25 @@ class predicciones:
     
     def nodo_has_empty(self,nodoNoTerminal):
         producciones= self.gram.get(nodoNoTerminal)
-
+        
+        cont=0
         for p in producciones:
             if 'ε' in p:
-                
                 return True
+            if p[0].islower() or p[0] == "_":
+                cont=cont+1
+        if cont==len(producciones):
+            return False
+
+        for p in producciones:
 
             mayusculas= True
             for cadena in p:
-                if cadena.islower():
+                if cadena.islower() or cadena == "_":
                     mayusculas=False
+            
             if mayusculas:
+                
                 vacio=True
                 for cadena in p:
                     if self.nodo_has_empty(cadena):
@@ -66,24 +74,33 @@ class predicciones:
                     else:
                         vacio = False
                 if vacio:
-                    return True     
+                    return True    
           
         return False
           
     def primeros(self,produccion,noTerminal,noTerminalesContenidos):
         
         conjuntoPrimeros=set()
-        
         has_empty = self.nodo_has_empty(noTerminal)
+        
+        # if produccion[0] in noTerminalesContenidos:
+        #     if self.nodo_has_empty(produccion[0]):
+        #         return self.primeros(self,produccion[1:],noTerminal,noTerminalesContenidos)
+        #     else:
+        #         return conjuntoPrimeros
+        
+        
+        
 
         #Si el elemento es vacio añado el vacio
         if produccion[0] =='ε':
             conjuntoPrimeros.add(produccion[0])
-        elif produccion[0].islower():
+        elif produccion[0].islower() or produccion[0] == "_":
             
             conjuntoPrimeros.add(produccion[0])
         #Si el elemento es un caracter en mayusculas
         elif produccion[0].isupper():
+            
             
             for nodo in produccion:
                 #En caso de encontrar recursión
@@ -102,6 +119,7 @@ class predicciones:
                             continue
                     else:
                         noTerminalesContenidos.append(nodo)
+                        
                         #Calculo el conjunto de primeros del nodo que ya comprobé es no terminal
                         primerosNoTerminal = self.primerosNodo(nodo,noTerminalesContenidos)                       
                         #Descarto la cadena vacia
@@ -112,15 +130,17 @@ class predicciones:
                         if self.nodo_has_empty(nodo)==False: 
                             break
                 
-                if nodo.islower():
+                if nodo.islower() or nodo=="_":
                     conjuntoPrimeros.add(nodo)
                     break
                     
         return conjuntoPrimeros  
                               
     def primerosNodo(self,nodoNoTerminal,noTerminalesContenidos):
+        
         conjuntoPrimeros=set()
         listaProduccionesTerminal = self.gram.get(nodoNoTerminal)
+        
         
         for produccion in listaProduccionesTerminal:
             conjuntoPrimeros.update(self.primeros(produccion,nodoNoTerminal,noTerminalesContenidos))
@@ -142,8 +162,11 @@ class predicciones:
             conjuntoSiguientes.add('$')    
         
         for indice_nodo in range(len(produccion)):
-            #Si encuentro una coincidencia en la producción con el NodoNoTerminal
+            
+                    
             if produccion[indice_nodo]==nodo_busqueda_siguientes:
+                
+                
                 
                 #En caso de encontrar el nodoNoTerminal como ultimo termino de la producción particular
                 if indice_nodo == len(produccion)-1:
@@ -162,7 +185,7 @@ class predicciones:
                 
                 elif indice_nodo < len(produccion)-1:
                     nodo_siguiente = produccion[indice_nodo+1]
-                    if nodo_siguiente.islower():
+                    if nodo_siguiente.islower() or nodo_siguiente=="_":
                         
                         conjuntoSiguientes.add(nodo_siguiente)
                     
@@ -225,7 +248,7 @@ class predicciones:
         if produccion[0]=='ε':
             conjuntoPrediccion.update(self.siguientesNoTerminales[nodoNoTerminal])
         
-        elif produccion[0].islower():
+        elif produccion[0].islower() or produccion[0]=="_":
             conjuntoPrediccion.add(produccion[0])
         
         elif produccion[0].isupper():
@@ -296,8 +319,11 @@ class predicciones:
                               
 
 
-# p = predicciones(gramatica1,'S')
-# p.imprimir()
+p = predicciones(estructuraGeneral,'S')
+p.imprimir()
+print(p.isLL1())
+
+
 
 
 

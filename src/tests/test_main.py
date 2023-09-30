@@ -1,6 +1,6 @@
 import pytest
 
-from src.gramar2 import Token
+from src.gramar2 import *
 
 
 @pytest.mark.parametrize(
@@ -37,14 +37,16 @@ def test_getnew(entrada):
     for c in range(len(lineas2)):
         lineas2[c]=lineas2[c][0:-1]
     
-    l=Token(lineas)
-    a=l.tkns
+    l=Lexer(lineas)
+    a=[]
     while(True ):
-        l.getTokens()
-        if l.tkns[len(l.tkns)-1]=="FINAL ARCHIVO":
+        n=l.getNextToken()
+        if n=="FINAL ARCHIVO":
             break
+        else:
+            a.append(n)
             
-    assert l.tkns[:len(l.tkns)-1] == lineas2
+    assert a == lineas2
 
 
 
