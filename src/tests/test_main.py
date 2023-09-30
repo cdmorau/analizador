@@ -26,7 +26,7 @@ from src.gramar2 import Token
     ]
 )
 def test_getnew(entrada):
-    l=Token()
+    
     ruta = './src/tests/filesfortest/'+entrada+".txt"  
     with open(ruta, 'r') as archivo:
         lineas = archivo.readlines()  
@@ -36,9 +36,15 @@ def test_getnew(entrada):
     
     for c in range(len(lineas2)):
         lineas2[c]=lineas2[c][0:-1]
-        
-        
-    assert l.getTokens(lineas) == lineas2
+    
+    l=Token(lineas)
+    a=l.tkns
+    while(True ):
+        l.getTokens()
+        if l.tkns[len(l.tkns)-1]=="FINAL ARCHIVO":
+            break
+            
+    assert l.tkns[:len(l.tkns)-1] == lineas2
 
 
 

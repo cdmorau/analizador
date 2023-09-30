@@ -11,6 +11,7 @@ class predicciones:
         self.primerosNoTerminales = self.primerosAll()
         self.siguientesNoTerminales = self.siguientesAll()
         self.prediccionNoTerminales = self.prediccionAll()
+        self.esLL1 = self.isLL1()
    
     def separar(self,cadena):
         # Usamos una expresión regular para separar las mayúsculas de las minúsculas
@@ -69,7 +70,7 @@ class predicciones:
           
         return False
           
-    def primeros(self,produccion,noTerminal):
+    def primeros(self,produccion,noTerminal,noTerminalesContenidos):
         
         conjuntoPrimeros=set()
         
@@ -93,16 +94,23 @@ class predicciones:
                         break
                 
                 if nodo.isupper():   
-                    
-                    #Calculo el conjunto de primeros del nodo que ya comprobé es no terminal
-                    primerosNoTerminal = self.primerosNodo(nodo)                       
-                    #Descarto la cadena vacia
-                    primerosNoTerminal.discard('ε')
-                    #Uno ambos conjuntos
-                    conjuntoPrimeros.update(primerosNoTerminal) 
-                    #Si la cadena vacia no está en el conjunto de primeros de dicho nodo rompo el ciclo porque ya encontre un nodo con todos los primeros terminales
-                    if self.nodo_has_empty(nodo)==False: 
-                        break
+                    if nodo in noTerminalesContenidos:
+                        
+                        if self.nodo_has_empty(nodo)==False: 
+                            break
+                        else:
+                            continue
+                    else:
+                        noTerminalesContenidos.append(nodo)
+                        #Calculo el conjunto de primeros del nodo que ya comprobé es no terminal
+                        primerosNoTerminal = self.primerosNodo(nodo,noTerminalesContenidos)                       
+                        #Descarto la cadena vacia
+                        primerosNoTerminal.discard('ε')
+                        #Uno ambos conjuntos
+                        conjuntoPrimeros.update(primerosNoTerminal) 
+                        #Si la cadena vacia no está en el conjunto de primeros de dicho nodo rompo el ciclo porque ya encontre un nodo con todos los primeros terminales
+                        if self.nodo_has_empty(nodo)==False: 
+                            break
                 
                 if nodo.islower():
                     conjuntoPrimeros.add(nodo)
@@ -110,22 +118,21 @@ class predicciones:
                     
         return conjuntoPrimeros  
                               
-    def primerosNodo(self,nodoNoTerminal):
+    def primerosNodo(self,nodoNoTerminal,noTerminalesContenidos):
         conjuntoPrimeros=set()
         listaProduccionesTerminal = self.gram.get(nodoNoTerminal)
         
         for produccion in listaProduccionesTerminal:
-            conjuntoPrimeros.update(self.primeros(produccion,nodoNoTerminal))
+            conjuntoPrimeros.update(self.primeros(produccion,nodoNoTerminal,noTerminalesContenidos))
         
         return conjuntoPrimeros
                     
     def primerosAll(self):
         conjuntosPrimeros = {}
         for k in self.gram.keys():
-            conjuntosPrimeros[k]=self.primerosNodo(k)
+            noTerminalesContenidos=[]
+            conjuntosPrimeros[k]=self.primerosNodo(k,noTerminalesContenidos)
         return conjuntosPrimeros
-    
-    
     
     def siguientes(self,produccion,nodoNoTerminal,nodo_busqueda_siguientes,noterminalesContenidos):
         #En este caso la producción se mira aislada y el nodoNoTerminal no es necesariamente el asociado a la producción
@@ -145,7 +152,7 @@ class predicciones:
                         noterminalesContenidos.append(nodoNoTerminal,)
                         
                         conjuntoSiguientes.update(self.siguientesNodo(nodoNoTerminal,noterminalesContenidos))
-                        print (conjuntoSiguientes,nodo_busqueda_siguientes)
+                        
                         
                     elif self.nodo_has_empty(nodoNoTerminal):
                         continue
@@ -271,23 +278,26 @@ class predicciones:
             f.write(dfprediccion.to_string())
             f.write('\n'*5)
             f.write(prim_seg.transpose().to_string())
-            
+    
+    def isLL1(self):
         
-            
-        
+        for nodoNoTerminal in self.primerosNoTerminales.keys():
+            conjuntoPrueba=set()
+            for produccion in self.prediccionNoTerminales.keys():
+                if produccion[0] == nodoNoTerminal:
+                    #Si la intersección de conjutos es 0 se agrega el conjunto
+                    if len(conjuntoPrueba & self.prediccionNoTerminales.get(produccion))==0:
+                        conjuntoPrueba.update(self.prediccionNoTerminales.get(produccion))
+                    #Si hay elementos en ella retornar Falso
+                    else:
+                        
+                        return False
+        return True
+                              
 
-        
 
-p= predicciones(gramatica2,'S')
-
-p.imprimir()
-
-print(p.siguientesNodo('B',[]),"NodoB")
-
-
-
-        
-
+# p = predicciones(gramatica1,'S')
+# p.imprimir()
 
 
 

@@ -1,21 +1,23 @@
-                                     PREDICCION
-S => ABuno      [cinco, cuatro, dos, tres, uno]
-A => dosB                                 [dos]
-A => ε         [cinco, cuatro, tres, seis, uno]
-B => CD                         [cinco, cuatro]
-B => tres                                [tres]
-B => ε         [cinco, cuatro, tres, seis, uno]
-C => cuatroAB                          [cuatro]
-C => cinco                              [cinco]
-D => seis                                [seis]
-D => ε         [cinco, cuatro, tres, seis, uno]
+                                        PREDICCION
+S => ABC                    [$, dos, cuatro, seis]
+S => DE                        [cuatro, tres, uno]
+A => dosBtres                                [dos]
+A => ε              [$, tres, cinco, cuatro, seis]
+B => BcuatroCcinco                        [cuatro]
+B => ε              [$, cuatro, cinco, tres, seis]
+C => seisAB                                 [seis]
+C => ε                                  [$, cinco]
+D => unoAE                                   [uno]
+D => B                              [cuatro, tres]
+E => tres                                   [tres]
 
 
 
 
-                          PRIMEROS                        SIGUIENTES
-S  [cinco, cuatro, tres, dos, uno]                               [$]
-A                         [dos, ε]  [cuatro, tres, cinco, seis, uno]
-B         [cinco, cuatro, tres, ε]  [cinco, cuatro, tres, seis, uno]
-C                  [cinco, cuatro]  [cinco, cuatro, tres, seis, uno]
-D                        [seis, ε]  [cinco, cuatro, tres, seis, uno]
+                         PRIMEROS                      SIGUIENTES
+S  [tres, uno, dos, cuatro, seis]                             [$]
+A                        [dos, ε]  [$, tres, cinco, cuatro, seis]
+B                     [cuatro, ε]  [$, cuatro, cinco, tres, seis]
+C                       [seis, ε]                      [$, cinco]
+D                   [cuatro, uno]                          [tres]
+E                          [tres]                       [$, tres]
