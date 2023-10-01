@@ -14,6 +14,10 @@ class predicciones:
         self.esLL1 = self.isLL1()
    
     def separar(self,cadena):
+        
+        if type(cadena)==type([]):
+            return cadena
+        
         # Usamos una expresión regular para separar las mayúsculas de las minúsculas
         partes = re.findall(r'[A-Z]|[a-z_]+', cadena)
         

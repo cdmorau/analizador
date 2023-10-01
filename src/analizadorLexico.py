@@ -1,13 +1,14 @@
 
 import re
 import copy
-import sys
 
 
-class Token:
+class Lexer:
     def __init__(self,codigo):
         
         self.newToken=False
+        
+        self.nToken=-1
         
         self.inside_comment=False
         self.inside_comilla=False
@@ -316,17 +317,8 @@ class Token:
             
             self.codigo[self.fila-1] = inicio+reemplazo+fin
 
-        print("IMPRESION ")
-        print(self.tkns)
-        
-            
-        
-        
 
-
-                
         
-    
     #Manejo de errores
     def errorTes(self):
         
@@ -334,6 +326,10 @@ class Token:
         
         return ">>> Error lexico (linea: "+str(self.fila)+", posicion: "+str(self.columna)+")"
 
-
+    def getNextToken(self):
+        self.getTokens()
+        self.nToken=self.nToken+1
+        return self.tkns[self.nToken]
+        
 
 

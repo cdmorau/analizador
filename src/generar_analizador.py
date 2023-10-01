@@ -1,8 +1,8 @@
 from predicciones import *
 
 class generarCodigoAnalizador:
-    def __init__(self,gram,inicio):
-        self.elementos_gramatica= predicciones(gram,inicio)
+    def __init__(self,referenciGramatica,inicio):
+        self.elementos_gramatica = predicciones(referenciGramatica,inicio)
         self.gram= self.elementos_gramatica.gram
         self.conjuntoPredicciones= self.elementos_gramatica.prediccionNoTerminales
     
@@ -12,7 +12,7 @@ class generarCodigoAnalizador:
         cadena = "( "
         for pred in setPrediccion:
             
-            cadena = cadena +"( token() == "+ "\""+pred+"\""+" ) or "
+            cadena = cadena +"( token == "+ "\""+pred+"\""+" ) or "
             
         cadena = cadena[0:len(cadena)-3]
         cadena = cadena + ")"
@@ -77,7 +77,7 @@ class generarCodigoAnalizador:
         codigo=[]
         inicio=self.elementos_gramatica.inicio 
         codigo.append("import sys")
-        codigo.append("from src.gramar2 import *")
+        codigo.append("from src.analizadorLexico import *")
         codigo.append(" ")
         codigo.append("def errorSintaxis(conjunto):")
         codigo.append("    return(conjunto)")
@@ -112,13 +112,13 @@ class generarCodigoAnalizador:
         
                          
 
-generador=generarCodigoAnalizador(ejercicio1,'S')
+generador=generarCodigoAnalizador(estructuraGeneral,'S')
 generador.elementos_gramatica.imprimir()
 
 generador.generarCodigoGeneral()
 
 print(generador.elementos_gramatica.esLL1)
-codigo=generador.generar_funcion_nodo_no_terminal('B')
+codigo=generador.generar_funcion_nodo_no_terminal('A')
 
 for linea in codigo:
     print(linea)

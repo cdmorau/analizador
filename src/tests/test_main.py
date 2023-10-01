@@ -1,6 +1,6 @@
 import pytest
 
-from src.gramar2 import *
+from src.analizadorLexico import *
 
 
 @pytest.mark.parametrize(
