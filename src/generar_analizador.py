@@ -55,6 +55,7 @@ class generarCodigoAnalizador:
         codigo=[]
         
         codigo.append("    def "+nodoNoTerminal+"(self):")
+        codigo.append("        print(\""+nodoNoTerminal+"\")")
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return")
         
@@ -111,7 +112,9 @@ class generarCodigoAnalizador:
         for clave, valor in self.lexico.operadores_tokens.items():
             if valor == lexema_token[4:]:
                 return clave 
-        return(self.token) 
+        if lexema_token == \"final de archivo\":
+            return(self.token) 
+        print(\"No se reconoce token\",lexema_token)
     
     def salidaConjuntoLexema(self, conjuntoTokens):
         conjuntoTokens.sort()

@@ -24,7 +24,9 @@ class sintactico:
         for clave, valor in self.lexico.operadores_tokens.items():
             if valor == lexema_token[4:]:
                 return clave 
-        return(self.token) 
+        if lexema_token == "final de archivo":
+            return(self.token) 
+        print("No se reconoce token",lexema_token)
     
     def salidaConjuntoLexema(self, conjuntoTokens):
         conjuntoTokens.sort()
@@ -53,23 +55,27 @@ class sintactico:
             self.errorSintaxis([tknEsperado])
  
     def S(self):
+        print("S")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "registro" ) or ( self.token == "entero" ) or ( self.token == "id" ) or ( self.token == "arreglo" ) or ( self.token == "caracter" ) or ( self.token == "funcion" ) or ( self.token == "real" ) or ( self.token == "booleano" ) or ( self.token == "inicio" ) or ( self.token == "cadena" ) or ( self.token == "procedimiento" ) ):
+        if( ( self.token == "real" ) or ( self.token == "booleano" ) or ( self.token == "entero" ) or ( self.token == "inicio" ) or ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "procedimiento" ) or ( self.token == "funcion" ) or ( self.token == "registro" ) ):
+            self.R()
+            self.V()
             self.D()
             self.emparejar("inicio")
             self.A()
             self.emparejar("fin")
-        else: self.errorSintaxis( [ "registro","entero","id","arreglo","caracter","funcion","real","booleano","inicio","cadena","procedimiento" ] )
+        else: self.errorSintaxis( [ "real","booleano","entero","inicio","caracter","id","cadena","arreglo","procedimiento","funcion","registro" ] )
  
  
     def A(self):
+        print("A")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "id" ) ):
             self.B()
             self.A()
-        elif( ( self.token == "casos" ) ):
+        elif( ( self.token == "caso" ) ):
             self.C()
             self.A()
         elif( ( self.token == "escriba" ) ):
@@ -95,21 +101,16 @@ class sintactico:
         elif( ( self.token == "para" ) ):
             self.T()
             self.A()
-        elif( ( self.token == "fin" ) ):
+        elif( ( self.token == "fin" ) or ( self.token == "retorne" ) ):
             return
-        else: self.errorSintaxis( [ "fin","repita","id","llamar","si","para","casos","escriba","lea","mientras" ] )
+        else: self.errorSintaxis( [ "caso","repita","para","llamar","mientras","escriba","fin","retorne","id","lea","si" ] )
  
  
     def D(self):
+        print("D")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "registro" ) ):
-            self.R()
-            self.D()
-        elif( ( self.token == "id" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) or ( self.token == "arreglo" ) or ( self.token == "caracter" ) or ( self.token == "cadena" ) ):
-            self.V()
-            self.D()
-        elif( ( self.token == "funcion" ) ):
+        if( ( self.token == "funcion" ) ):
             self.emparejar("funcion")
             self.F()
             self.D()
@@ -118,39 +119,52 @@ class sintactico:
             self.D()
         elif( ( self.token == "inicio" ) ):
             return
-        else: self.errorSintaxis( [ "registro","entero","id","arreglo","caracter","funcion","real","booleano","inicio","cadena","procedimiento" ] )
+        else: self.errorSintaxis( [ "procedimiento","funcion","inicio" ] )
  
  
     def Ð(self):
+        print("Ð")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "id" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) or ( self.token == "arreglo" ) or ( self.token == "caracter" ) or ( self.token == "cadena" ) ):
-            self.V()
+        if( ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) ):
+            self.À()
             self.Ð()
         elif( ( self.token == "inicio" ) ):
             return
-        else: self.errorSintaxis( [ "id","real","entero","booleano","arreglo","inicio","caracter","cadena" ] )
+        else: self.errorSintaxis( [ "caracter","id","cadena","arreglo","real","entero","booleano","inicio" ] )
  
  
     def R(self):
+        print("R")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "registro" ) ):
             self.emparejar("registro")
-        else: self.errorSintaxis( [ "registro" ] )
+            self.Å()
+            self.Û()
+            self.emparejar("registro")
+            self.R()
+        elif( ( self.token == "real" ) or ( self.token == "booleano" ) or ( self.token == "entero" ) or ( self.token == "inicio" ) or ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "procedimiento" ) or ( self.token == "funcion" ) ):
+            return
+        else: self.errorSintaxis( [ "real","booleano","entero","inicio","caracter","id","cadena","arreglo","procedimiento","funcion","registro" ] )
  
  
     def V(self):
+        print("V")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "id" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) or ( self.token == "arreglo" ) or ( self.token == "caracter" ) or ( self.token == "cadena" ) ):
+        if( ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) ):
             self.G()
             self.emparejar("id")
             self.Y()
-        else: self.errorSintaxis( [ "id","real","entero","booleano","arreglo","caracter","cadena" ] )
+            self.V()
+        elif( ( self.token == "procedimiento" ) or ( self.token == "funcion" ) or ( self.token == "inicio" ) ):
+            return
+        else: self.errorSintaxis( [ "real","booleano","entero","inicio","caracter","id","cadena","arreglo","procedimiento","funcion" ] )
  
  
     def F(self):
+        print("F")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "id" ) ):
@@ -161,11 +175,13 @@ class sintactico:
             self.Ð()
             self.emparejar("inicio")
             self.A()
+            self.Ō()
             self.emparejar("fin")
         else: self.errorSintaxis( [ "id" ] )
  
  
     def P(self):
+        print("P")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "procedimiento" ) ):
@@ -174,6 +190,7 @@ class sintactico:
  
  
     def B(self):
+        print("B")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "id" ) ):
@@ -184,14 +201,16 @@ class sintactico:
  
  
     def C(self):
+        print("C")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "casos" ) ):
-            self.emparejar("casos")
-        else: self.errorSintaxis( [ "casos" ] )
+        if( ( self.token == "caso" ) ):
+            self.emparejar("caso")
+        else: self.errorSintaxis( [ "caso" ] )
  
  
     def E(self):
+        print("E")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "id" ) or ( self.token == "tkn_char" ) or ( self.token == "tkn_str" ) ):
@@ -201,6 +220,7 @@ class sintactico:
  
  
     def L(self):
+        print("L")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "lea" ) ):
@@ -209,6 +229,7 @@ class sintactico:
  
  
     def H(self):
+        print("H")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "si" ) ):
@@ -217,6 +238,7 @@ class sintactico:
  
  
     def N(self):
+        print("N")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "nueva_linea" ) ):
@@ -225,6 +247,7 @@ class sintactico:
  
  
     def M(self):
+        print("M")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "mientras" ) ):
@@ -233,6 +256,7 @@ class sintactico:
  
  
     def I(self):
+        print("I")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "repita" ) ):
@@ -241,6 +265,7 @@ class sintactico:
  
  
     def T(self):
+        print("T")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "para" ) ):
@@ -249,18 +274,33 @@ class sintactico:
  
  
     def Y(self):
+        print("Y")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_comma" ) ):
             self.Z()
             self.emparejar("id")
             self.Y()
-        elif( ( self.token == "registro" ) or ( self.token == "fin" ) or ( self.token == "repita" ) or ( self.token == "id" ) or ( self.token == "caracter" ) or ( self.token == "si" ) or ( self.token == "para" ) or ( self.token == "funcion" ) or ( self.token == "booleano" ) or ( self.token == "lea" ) or ( self.token == "llamar" ) or ( self.token == "cadena" ) or ( self.token == "procedimiento" ) or ( self.token == "entero" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "casos" ) or ( self.token == "escriba" ) or ( self.token == "inicio" ) or ( self.token == "mientras" ) ):
+        elif( ( self.token == "real" ) or ( self.token == "booleano" ) or ( self.token == "entero" ) or ( self.token == "inicio" ) or ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "procedimiento" ) or ( self.token == "funcion" ) ):
             return
-        else: self.errorSintaxis( [ "registro","fin","repita","id","caracter","si","para","funcion","booleano","lea","llamar","cadena","procedimiento","entero","tkn_comma","arreglo","real","casos","escriba","inicio","mientras" ] )
+        else: self.errorSintaxis( [ "real","tkn_comma","booleano","entero","inicio","caracter","id","cadena","arreglo","procedimiento","funcion" ] )
+ 
+ 
+    def Ý(self):
+        print("Ý")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "tkn_comma" ) ):
+            self.Z()
+            self.emparejar("id")
+            self.Ý()
+        elif( ( self.token == "fin" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "retorne" ) or ( self.token == "caracter" ) or ( self.token == "arreglo" ) or ( self.token == "si" ) or ( self.token == "escriba" ) or ( self.token == "caso" ) or ( self.token == "repita" ) or ( self.token == "para" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) or ( self.token == "booleano" ) or ( self.token == "inicio" ) or ( self.token == "id" ) or ( self.token == "lea" ) or ( self.token == "cadena" ) ):
+            return
+        else: self.errorSintaxis( [ "fin","real","entero","retorne","caracter","arreglo","si","escriba","caso","repita","para","llamar","tkn_comma","mientras","booleano","inicio","id","lea","cadena" ] )
  
  
     def U(self):
+        print("U")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_str" ) ):
@@ -273,18 +313,20 @@ class sintactico:
  
  
     def Ú(self):
+        print("Ú")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_comma" ) ):
             self.Z()
             self.U()
-            self.Y()
-        elif( ( self.token == "fin" ) or ( self.token == "lea" ) or ( self.token == "repita" ) or ( self.token == "id" ) or ( self.token == "si" ) or ( self.token == "para" ) or ( self.token == "casos" ) or ( self.token == "escriba" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) ):
+            self.Ý()
+        elif( ( self.token == "caso" ) or ( self.token == "repita" ) or ( self.token == "para" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) or ( self.token == "fin" ) or ( self.token == "retorne" ) or ( self.token == "id" ) or ( self.token == "lea" ) or ( self.token == "si" ) or ( self.token == "escriba" ) ):
             return
-        else: self.errorSintaxis( [ "fin","repita","id","tkn_comma","llamar","si","para","casos","escriba","lea","mientras" ] )
+        else: self.errorSintaxis( [ "caso","repita","para","llamar","tkn_comma","mientras","fin","retorne","escriba","id","lea","si" ] )
  
  
     def Z(self):
+        print("Z")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_comma" ) ):
@@ -293,6 +335,7 @@ class sintactico:
  
  
     def G(self):
+        print("G")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "entero" ) ):
@@ -315,10 +358,11 @@ class sintactico:
             self.O()
         elif( ( self.token == "id" ) ):
             self.emparejar("id")
-        else: self.errorSintaxis( [ "id","real","entero","booleano","arreglo","caracter","cadena" ] )
+        else: self.errorSintaxis( [ "caracter","id","cadena","arreglo","real","entero","booleano" ] )
  
  
     def J(self):
+        print("J")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_opening_bra" ) ):
@@ -327,6 +371,7 @@ class sintactico:
  
  
     def K(self):
+        print("K")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_integer" ) ):
@@ -335,6 +380,7 @@ class sintactico:
  
  
     def O(self):
+        print("O")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_closing_bra" ) ):
@@ -343,6 +389,7 @@ class sintactico:
  
  
     def X(self):
+        print("X")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_assign" ) ):
@@ -351,27 +398,30 @@ class sintactico:
  
  
     def Í(self):
+        print("Í")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "verdadero" ) or ( self.token == "falso" ) or ( self.token == "tkn_opening_par" ) or ( self.token == "id" ) or ( self.token == "tkn_integer" ) or ( self.token == "tkn_real" ) or ( self.token == "tkn_str" ) or ( self.token == "tkn_char" ) ):
+        if( ( self.token == "tkn_char" ) or ( self.token == "tkn_integer" ) or ( self.token == "verdadero" ) or ( self.token == "falso" ) or ( self.token == "id" ) or ( self.token == "tkn_str" ) or ( self.token == "tkn_opening_par" ) or ( self.token == "tkn_real" ) ):
             self.É()
             self.Ó()
-        else: self.errorSintaxis( [ "verdadero","falso","tkn_opening_par","id","tkn_integer","tkn_real","tkn_str","tkn_char" ] )
+        else: self.errorSintaxis( [ "tkn_char","tkn_integer","verdadero","falso","id","tkn_str","tkn_opening_par","tkn_real" ] )
  
  
     def Ó(self):
+        print("Ó")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "div" ) or ( self.token == "tkn_times" ) or ( self.token == "tkn_div" ) or ( self.token == "tkn_power" ) or ( self.token == "mod" ) or ( self.token == "tkn_minus" ) or ( self.token == "tkn_plus" ) ):
+        if( ( self.token == "tkn_times" ) or ( self.token == "mod" ) or ( self.token == "div" ) or ( self.token == "tkn_minus" ) or ( self.token == "tkn_div" ) or ( self.token == "tkn_power" ) or ( self.token == "tkn_plus" ) ):
             self.Q()
             self.É()
             self.Ó()
-        elif( ( self.token == "fin" ) or ( self.token == "lea" ) or ( self.token == "repita" ) or ( self.token == "id" ) or ( self.token == "tkn_closing_par" ) or ( self.token == "si" ) or ( self.token == "para" ) or ( self.token == "casos" ) or ( self.token == "escriba" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) ):
+        elif( ( self.token == "caso" ) or ( self.token == "repita" ) or ( self.token == "para" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) or ( self.token == "fin" ) or ( self.token == "tkn_closing_par" ) or ( self.token == "retorne" ) or ( self.token == "id" ) or ( self.token == "lea" ) or ( self.token == "si" ) or ( self.token == "escriba" ) ):
             return
-        else: self.errorSintaxis( [ "fin","tkn_minus","repita","id","si","para","tkn_power","lea","llamar","mod","tkn_closing_par","div","tkn_times","tkn_div","casos","escriba","mientras","tkn_plus" ] )
+        else: self.errorSintaxis( [ "mod","fin","retorne","tkn_times","tkn_minus","si","escriba","caso","repita","tkn_div","para","llamar","mientras","tkn_closing_par","tkn_plus","id","lea","div","tkn_power" ] )
  
  
     def Q(self):
+        print("Q")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_plus" ) ):
@@ -388,10 +438,11 @@ class sintactico:
             self.emparejar("div")
         elif( ( self.token == "mod" ) ):
             self.emparejar("mod")
-        else: self.errorSintaxis( [ "div","tkn_times","tkn_div","tkn_power","mod","tkn_minus","tkn_plus" ] )
+        else: self.errorSintaxis( [ "tkn_times","mod","div","tkn_minus","tkn_div","tkn_power","tkn_plus" ] )
  
  
     def É(self):
+        print("É")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_integer" ) ):
@@ -413,22 +464,24 @@ class sintactico:
             self.emparejar("tkn_opening_par")
             self.Í()
             self.emparejar("tkn_closing_par")
-        else: self.errorSintaxis( [ "tkn_real","verdadero","tkn_str","tkn_opening_par","id","falso","tkn_integer","tkn_char" ] )
+        else: self.errorSintaxis( [ "id","tkn_char","tkn_integer","tkn_str","verdadero","falso","tkn_real","tkn_opening_par" ] )
  
  
     def Á(self):
+        print("Á")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_opening_bra" ) ):
             self.J()
             self.K()
             self.O()
-        elif( ( self.token == "fin" ) or ( self.token == "tkn_minus" ) or ( self.token == "repita" ) or ( self.token == "id" ) or ( self.token == "si" ) or ( self.token == "para" ) or ( self.token == "tkn_power" ) or ( self.token == "lea" ) or ( self.token == "llamar" ) or ( self.token == "mod" ) or ( self.token == "tkn_closing_par" ) or ( self.token == "div" ) or ( self.token == "tkn_times" ) or ( self.token == "tkn_div" ) or ( self.token == "casos" ) or ( self.token == "escriba" ) or ( self.token == "mientras" ) or ( self.token == "tkn_plus" ) ):
+        elif( ( self.token == "mod" ) or ( self.token == "fin" ) or ( self.token == "retorne" ) or ( self.token == "tkn_times" ) or ( self.token == "tkn_minus" ) or ( self.token == "si" ) or ( self.token == "escriba" ) or ( self.token == "caso" ) or ( self.token == "repita" ) or ( self.token == "tkn_div" ) or ( self.token == "para" ) or ( self.token == "llamar" ) or ( self.token == "mientras" ) or ( self.token == "tkn_closing_par" ) or ( self.token == "tkn_plus" ) or ( self.token == "id" ) or ( self.token == "lea" ) or ( self.token == "div" ) or ( self.token == "tkn_power" ) ):
             return
-        else: self.errorSintaxis( [ "fin","tkn_minus","repita","id","si","para","tkn_power","lea","llamar","mod","tkn_opening_bra","tkn_closing_par","div","tkn_times","tkn_div","casos","escriba","mientras","tkn_plus" ] )
+        else: self.errorSintaxis( [ "mod","fin","retorne","tkn_times","tkn_opening_bra","tkn_minus","si","escriba","caso","repita","tkn_div","para","llamar","mientras","tkn_closing_par","tkn_plus","id","lea","div","tkn_power" ] )
  
  
     def Ã(self):
+        print("Ã")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_opening_par" ) ):
@@ -437,6 +490,7 @@ class sintactico:
  
  
     def Õ(self):
+        print("Õ")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_closing_par" ) ):
@@ -445,18 +499,19 @@ class sintactico:
  
  
     def W(self):
+        print("W")
         if (self.errorSintacticoEncontrado==True):
             return
-        if( ( self.token == "id" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) or ( self.token == "arreglo" ) or ( self.token == "caracter" ) or ( self.token == "cadena" ) ):
+        if( ( self.token == "real" ) or ( self.token == "booleano" ) or ( self.token == "entero" ) or ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "var" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) ):
+            self.Ē()
             self.G()
             self.emparejar("id")
             self.Ā()
-        elif( ( self.token == "tkn_closing_par" ) ):
-            return
-        else: self.errorSintaxis( [ "id","real","entero","booleano","arreglo","caracter","cadena","tkn_closing_par" ] )
+        else: self.errorSintaxis( [ "real","booleano","entero","caracter","id","var","cadena","arreglo" ] )
  
  
     def Ā(self):
+        print("Ā")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_comma" ) ):
@@ -467,7 +522,19 @@ class sintactico:
         else: self.errorSintaxis( [ "tkn_comma","tkn_closing_par" ] )
  
  
+    def Ē(self):
+        print("Ē")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "var" ) ):
+            self.emparejar("var")
+        elif( ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) ):
+            return
+        else: self.errorSintaxis( [ "real","booleano","entero","caracter","id","var","cadena","arreglo" ] )
+ 
+ 
     def Ī(self):
+        print("Ī")
         if (self.errorSintacticoEncontrado==True):
             return
         if( ( self.token == "tkn_opening_par" ) ):
@@ -477,6 +544,59 @@ class sintactico:
         elif( ( self.token == "tkn_colon" ) ):
             return
         else: self.errorSintaxis( [ "tkn_opening_par","tkn_colon" ] )
+ 
+ 
+    def Ō(self):
+        print("Ō")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "retorne" ) ):
+            self.emparejar("retorne")
+            self.Í()
+        elif( ( self.token == "fin" ) ):
+            return
+        else: self.errorSintaxis( [ "fin","retorne" ] )
+ 
+ 
+    def Ū(self):
+        print("Ū")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "id" ) ):
+            self.emparejar("id")
+        else: self.errorSintaxis( [ "id" ] )
+ 
+ 
+    def À(self):
+        print("À")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) ):
+            self.G()
+            self.emparejar("id")
+            self.Ý()
+        else: self.errorSintaxis( [ "caracter","id","cadena","arreglo","real","entero","booleano" ] )
+ 
+ 
+    def Å(self):
+        print("Å")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "caracter" ) or ( self.token == "id" ) or ( self.token == "cadena" ) or ( self.token == "arreglo" ) or ( self.token == "real" ) or ( self.token == "entero" ) or ( self.token == "booleano" ) ):
+            self.À()
+            self.Å()
+        elif( ( self.token == "fin" ) ):
+            return
+        else: self.errorSintaxis( [ "caracter","id","cadena","arreglo","fin","real","entero","booleano" ] )
+ 
+ 
+    def Û(self):
+        print("Û")
+        if (self.errorSintacticoEncontrado==True):
+            return
+        if( ( self.token == "fin" ) ):
+            self.emparejar("fin")
+        else: self.errorSintaxis( [ "fin" ] )
  
     def main(self):
         self.S()

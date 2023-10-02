@@ -40,8 +40,8 @@ Z: Coma
 Í: Operaciones
 Ó: Nodo auxiliar operaciones
 Ú: Combinación separada por comas de U
-Ý
-À: 
+Ý: Otro Y
+À: Identificadores que terminan en fin para los registrods
 È: 
 Ì: 
 Ò: 
@@ -55,21 +55,21 @@ Z: Coma
 Ê:
 Î:
 Ô:
-Û:
-Å
+Û: Fin solito 
+Å: Serie de registros
 Ã: Abre parentesis
 Õ: Cierra parentesis
 Ā: coma declaracion variable y coma
 Ē: dospunto tipo de variable de retorno o nada
-Ī
-Ō
-Ū
+Ī: Parentesis con definicion de variables
+Ō: retorne sintaxis
+Ū: id solito u.u
 
 """
 
 estructuraGeneral = {
-    #D=Declaraciones A=Acciones
-    'S': ['DinicioAfin'],
+    # Registros VariablesDeclaradas y Funciones y procedimientos 
+    'S': ['RVDinicioAfin'],
     
     #Acciones entre inicio y fin B = asignaciones<-,  E= Estructura escribir, L= Estructura Lea H= Estructuras SI,else,sino
     #C estructura Casos   # N= estructura nueva linea M=Estructura mientras  I = estructura repita T= Estructura Para   Q=eliminacion de recursividad
@@ -77,19 +77,19 @@ estructuraGeneral = {
     
     
     #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
-    'D': ['RD','VD','funcionFD','PD', 'ε'],
-    'Ð': ['VÐ', 'ε'],
+    'D': ['funcionFD','PD', 'ε'],
+    'Ð': ['ÀÐ', 'ε'],
     
     # Derivados de D
-    'R':['registro'],
-    'V':['GidY'],
-    'F':['idĪtkn_colonGÐinicioAfin'],
+    'R':['registroÅÛregistroR','ε'],
+    'V':['GidYV','ε'],
+    'F':['idĪtkn_colonGÐinicioAŌfin'],
     'P':['procedimiento'],
     
     # Derivados de A
     # n1<-(2/3)*5+2^2
     'B':['idXÍ'],
-    'C':['casos'],
+    'C':['caso'],
     'E':['UÚ'],
     'L':['lea'],
     'H':['si'],
@@ -101,9 +101,11 @@ estructuraGeneral = {
     # Otras estructuras
     # Estructura de identificador individual seguido de cualquier otro valor antes del inicial
     'Y':['ZidY','ε'],
+    'Ý':['ZidÝ','ε'],
+    
     #Cadenas caracteres e identificadores separados por comas
     'U':['tkn_str','tkn_char','id'],
-    'Ú':['ZUY','ε'],
+    'Ú':['ZUÝ','ε'],
     'Z':['tkn_comma'],
     # Estructura para tipos de dato
     'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJKO','arregloJKO','id'],
@@ -124,10 +126,19 @@ estructuraGeneral = {
     #Variables para determinar declaraciones de variables separadas por comas y encerradas en parentesis
     'Ã':['tkn_opening_par'],
     'Õ':['tkn_closing_par'],
-    'W':['GidĀ','ε'],
+    'W':['ĒGidĀ'],
     'Ā':['ZW','ε'],
-    #'Ē':['tkn_colonG','ε'],
+    'Ē':['var','ε'],
     'Ī':['ÃWÕ','ε'],
+    'Ō':['retorneÍ','ε'],
+    'Ū':['id'],
+    
+    'À':['GidÝ'],
+    'Å':['ÀÅ','ε'],
+    'Û':['fin'],
+    
+    
+    
     
     
     
