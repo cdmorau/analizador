@@ -1,0 +1,5 @@
+para i <-0 hasta 20 haga
+   escriba i
+fin para
+
+// ¡Ay! Olvidé que solo puedo definir ciclos en un flujo :'v

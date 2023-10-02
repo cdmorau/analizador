@@ -1,0 +1,1 @@
+<19:8> Error sintactico: se encontro: "llamar"; se esperaba: "arreglo", "booleano", "cadena", "caracter", "entero", "id", "inicio", "real".

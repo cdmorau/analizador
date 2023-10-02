@@ -2,6 +2,11 @@ import pytest
 
 from src.analizadorLexico import *
 
+import sys
+
+from subprocess import check_output
+from src.analizadorSintactico import *
+
 
 @pytest.mark.parametrize(
     "entrada",
@@ -40,8 +45,8 @@ def test_getnew(entrada):
     l=Lexer(lineas)
     a=[]
     while(True ):
-        n=l.getNextToken()
-        if n=="FINAL ARCHIVO":
+        n=l.getNextTokenTest()
+        if n=="<final de archivo>":
             break
         else:
             a.append(n)
@@ -49,4 +54,36 @@ def test_getnew(entrada):
     assert a == lineas2
 
 
+
+
+@pytest.mark.parametrize(
+    "nombreArchivo",
+    [
+        ("iniciofin"),
+        ("variables"),
+        ("01"),
+        ("03"),
+        ("04"),
+        ("05")
+                     
+    ]
+)
+def test_Sintactico(nombreArchivo):
+    ruta = "./src/tests/testSintactico/"+nombreArchivo+".txt"
+    rutaS  = "./src/tests/testSintactico/"+nombreArchivo+" copy.txt"
+    
+    salida_esperada=[]
+    with open(rutaS, 'r') as archivo:
+        salida_esperada = archivo.readlines()
+
+    entrada=[]
+    with open(ruta, 'r') as archivo2:
+        entrada = archivo2.readlines()
+
+    sin= sintactico(entrada)
+            
+            
+    # Verifica que la salida generada sea igual a la salida esperada
+    assert salida_esperada[0] == sin.main()
+    
 

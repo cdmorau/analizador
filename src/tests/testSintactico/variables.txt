@@ -1,0 +1,7 @@
+entero my_integer, variableIwillNOTUse
+real the_real_ONE
+Booleano boolean
+Caracter char
+cadena[35] string
+inicio
+fin

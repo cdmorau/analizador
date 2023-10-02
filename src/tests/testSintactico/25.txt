@@ -1,0 +1,7 @@
+inicio
+  x[alguna_posicion] = 2*5.0/x[1]
+ //ups, asi no eran las asignaciones en LPP
+  lea y.size
+  r<-alguna_funcion(fun,cion)
+  EOF = "yes"
+fin

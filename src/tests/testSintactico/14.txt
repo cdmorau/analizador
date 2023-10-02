@@ -1,0 +1,3 @@
+arreglo [10] entero my_array
+
+/* creo que me falta algo, no recuerdo que era */

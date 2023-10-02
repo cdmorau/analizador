@@ -1,0 +1,1 @@
+<6:5> Error sintactico: se encontro: "retorne"; se esperaba: "caso", "escriba", "fin", "id", "lea", "llamar", "mientras", "para", "repita", "si".

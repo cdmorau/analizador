@@ -1,0 +1,1 @@
+<1:1> Error sintactico: se encontro: "para"; se esperaba: "arreglo", "booleano", "cadena", "caracter", "entero", "funcion", "id", "inicio", "procedimiento", "real", "registro".

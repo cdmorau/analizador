@@ -1,0 +1,6 @@
+inicio
+
+     escriba llamar 
+     
+     
+fin

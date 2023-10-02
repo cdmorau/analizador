@@ -1,0 +1,31 @@
+/*
+    Now we might mix procedures and functions
+*/
+
+procedimiento procedureGod(cadena[10] name)
+
+    inicio
+      escriba "fino señores by "+name
+    fin
+
+funcion functionGod(cadena[10] name): cadena[10]
+
+    inicio
+       retorne name
+    fin
+
+procedimiento sayGoodBye
+inicio
+    llamar nueva_linea
+    escriba "Good bye :) "
+fin 
+inicio
+    
+    llamar procedureGod("Rey")
+
+    llamar nueva_linea
+
+    escriba "fino señores by",functionGod("Rey")
+    llamar sayGoodBye()
+
+fin

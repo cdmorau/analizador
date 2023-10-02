@@ -1,0 +1,4 @@
+inicio
+    lea a
+    escriba a
+fin

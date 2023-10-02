@@ -1,0 +1,5 @@
+Inicio
+   x <- -3+(5.76*2/x mod (10.0)-9
+Fin
+
+// No se cerraron los paréntesis adecuadamente

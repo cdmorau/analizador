@@ -1,0 +1,8 @@
+entero n1,n2
+inicio
+
+    lea n1,n2
+    escriba n1, (" y "), n2, ": fueron los números seleccionados :"+")"
+    // es posible separar los valores por coma o concatenar las cadenas
+
+fin

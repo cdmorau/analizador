@@ -1,0 +1,9 @@
+funcion my_function(entero a): entero
+   inicio
+
+   fin
+
+funcion second_function: real
+
+
+

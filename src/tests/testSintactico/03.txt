@@ -1,0 +1,3 @@
+/* I forgot that colons
+should not be at the end of a line */
+error,

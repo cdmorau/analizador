@@ -7,44 +7,128 @@ reservadas_tipos_de_dato = ['entero','real','caracter','booleano','cadena']
 
 datos_posibles = ['tkn_integer','tkn_real','tkn_str','tkn_char','id']
 
+"""
+A: Acciones
+B: Asignaciones
+C: Casos
+D: Antes del inicio
+E: Escribir
+F: Funciones
+G: Tipos de dato
+H: Estructuras de Si
+I: Estructura de repita
+J: Abrir parentesis cuadrado
+K: Entero
+L: Estructura de Lea
+M: Estructura de mientras
+N: Estructura de nueva linea
+Ñ: Minus
+O: Cerrar parentesis cuadrado
+P: Estructura de procedimiento
+Q: Operadores aritmeticos
+R: Estructura de registro
+S: Nodo inicial
+T: Estructura de For o para
+U: Cadenas identificadores e ids
+V: Estructura para definir variables
+W:
+X: Less
+Y: Estructura de identificadores continuos
+Z: Coma
+Á: division para identificadores
+É: Variables
+Í: Operaciones
+Ó: Nodo auxiliar operaciones
+Ú: Combinación separada por comas de U
+Ý
+À: 
+È: 
+Ì: 
+Ò: 
+Ù:
+Ä:
+Ë:
+Ï:
+Ö:
+Ü:
+Â:
+Ê:
+Î:
+Ô:
+Û:
+Å
+Ã: Abre parentesis
+Õ: Cierra parentesis
+Ā: coma declaracion variable y coma
+Ē: dospunto tipo de variable de retorno o nada
+Ī
+Ō
+Ū
 
+"""
 
 estructuraGeneral = {
     #D=Declaraciones A=Acciones
     'S': ['DinicioAfin'],
     
     #Acciones entre inicio y fin B = asignaciones<-,  E= Estructura escribir, L= Estructura Lea H= Estructuras SI,else,sino
-    #C estructura Casos   # N= estructura nueva linea M=Estructura mientras  I = estructura repita T= Estructura Para D   Q=eliminacion de recursividad
-    'A': ['BA','CA','EA','LA','HA','NA','MA','IA','TA','ε'],
+    #C estructura Casos   # N= estructura nueva linea M=Estructura mientras  I = estructura repita T= Estructura Para   Q=eliminacion de recursividad
+    'A': ['BA','CA','escribaEA','LA','HA','llamarNA','MA','IA','TA','ε'],
     
     
     #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
-    'D': ['RD','VD','FD','PD', 'ε'],
-    
+    'D': ['RD','VD','funcionFD','PD', 'ε'],
+    'Ð': ['VÐ', 'ε'],
     
     # Derivados de D
     'R':['registro'],
     'V':['GidY'],
-    'F':['funcion'],
+    'F':['idĪtkn_colonGÐinicioAfin'],
     'P':['procedimiento'],
     
     # Derivados de A
-    'B':['asignaciones'],
+    # n1<-(2/3)*5+2^2
+    'B':['idXÍ'],
     'C':['casos'],
-    'E':['escribir'],
-    'L':['estructuraLea'],
-    'H':['estructurassi'],
-    'N':['estructuranuevalinea'],
-    'M':['estructuramientras'],
-    'I':['estructurarepita'],
-    'T':['estructuradefor'],
+    'E':['UÚ'],
+    'L':['lea'],
+    'H':['si'],
+    'N':['nueva_linea'],
+    'M':['mientras'],
+    'I':['repita'],
+    'T':['para'],
     
     # Otras estructuras
     # Estructura de identificador individual seguido de cualquier otro valor antes del inicial
-    'Y':['commaidY','ε'],
+    'Y':['ZidY','ε'],
+    #Cadenas caracteres e identificadores separados por comas
+    'U':['tkn_str','tkn_char','id'],
+    'Ú':['ZUY','ε'],
+    'Z':['tkn_comma'],
     # Estructura para tipos de dato
-    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadena' + 'opening_bra' + 'tkn_integer' + 'closing_bra'],
-    # Estructura para arreglos
+    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJKO','arregloJKO','id'],
+    # Estructura para definir tamaño
+    'J':['tkn_opening_bra'],
+    'K':['tkn_integer'],
+    'O':['tkn_closing_bra'],
+    'X':['tkn_assign'],
+    #operaciones
+    'Í':['ÉÓ'],
+    'Ó':['QÉÓ','ε'],
+    #Operadores aritmeticos
+    'Q':['tkn_plus', 'tkn_minus', 'tkn_times', 'tkn_div', 'tkn_power','div','mod'],
+    #variables
+    'É':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idÁ','tkn_opening_parÍtkn_closing_par'],
+    #distinciones id normal y llamado de arreglo
+    'Á':['JKO','ε'],
+    #Variables para determinar declaraciones de variables separadas por comas y encerradas en parentesis
+    'Ã':['tkn_opening_par'],
+    'Õ':['tkn_closing_par'],
+    'W':['GidĀ','ε'],
+    'Ā':['ZW','ε'],
+    #'Ē':['tkn_colonG','ε'],
+    'Ī':['ÃWÕ','ε'],
+    
     
     
     #Letras sin usar J, K, Ñ, O, U, X, Z 

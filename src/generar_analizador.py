@@ -12,7 +12,7 @@ class generarCodigoAnalizador:
         cadena = "( "
         for pred in setPrediccion:
             
-            cadena = cadena +"( token == "+ "\""+pred+"\""+" ) or "
+            cadena = cadena +"( self.token == "+ "\""+pred+"\""+" ) or "
             
         cadena = cadena[0:len(cadena)-3]
         cadena = cadena + ")"
@@ -43,33 +43,41 @@ class generarCodigoAnalizador:
         codigo=[]
 
         for nodo in prod:
-            
             if nodo.isupper():
-                codigo.append("        "+nodo+"()")
+                codigo.append("            self."+nodo+"()")
             else:
-                codigo.append( "        emparejar(" + "\""+nodo+"\""")" )
+                codigo.append("            self.emparejar(" + "\""+nodo+"\""")" )
+                
         return codigo
             
     
     def generar_funcion_nodo_no_terminal(self,nodoNoTerminal):
         codigo=[]
         
-        codigo.append("def "+nodoNoTerminal+"():")
+        codigo.append("    def "+nodoNoTerminal+"(self):")
+        codigo.append("        if (self.errorSintacticoEncontrado==True):")
+        codigo.append("            return")
+        
+        
         cont=0
+        
+        vacio=False
         for keypred in self.conjuntoPredicciones.keys():
+            
             if keypred[0]==nodoNoTerminal:
                 cont=cont+1
                 conjunto= self.conjuntoPredicciones.get(keypred)
-                if keypred[5:len(keypred)] =='ε':
-                    continue
+
                 if cont==1:
-                    codigo.append("    if"+self.generarCadenaDeOrPrediccion(conjunto)+":")
+                    codigo.append("        if"+self.generarCadenaDeOrPrediccion(conjunto)+":")
                 else:
-                    codigo.append("    elif"+self.generarCadenaDeOrPrediccion(conjunto)+":")
-                codigo = codigo+self.algoritmoProduccion(self.elementos_gramatica.separar(keypred[5:len(keypred)]))
+                    codigo.append("        elif"+self.generarCadenaDeOrPrediccion(conjunto)+":")
+                if keypred[5:len(keypred)][0] == 'ε':
+                    codigo.append("            return"            )
+                else:    
+                    codigo = codigo+self.algoritmoProduccion(self.elementos_gramatica.separar(keypred[5:len(keypred)]))
                     
-                    
-        codigo.append("    else: errorSintaxis( "+self.cadenaconjunto(nodoNoTerminal)+" )")
+        codigo.append("        else: self.errorSintaxis( "+self.cadenaconjunto(nodoNoTerminal)+" )")
         
         return codigo
     
@@ -79,14 +87,63 @@ class generarCodigoAnalizador:
         codigo.append("import sys")
         codigo.append("from src.analizadorLexico import *")
         codigo.append(" ")
-        codigo.append("def errorSintaxis(conjunto):")
-        codigo.append("    return(conjunto)")
+        codigo.append("class sintactico:")
+        codigo.append("    def __init__(self,codigo):")
+        codigo.append("        self.lexico=Lexer(codigo)")
+        codigo.append("        self.token = self.lexico.getNextToken()")
+        codigo.append("        self.resultado = \"El analisis sintactico ha finalizado exitosamente.\"")
+        codigo.append("        self.errorSintacticoEncontrado=False")
+
+        codigo.append("""
+    
+    def salidaLexema(self, lexema_token):  
+                   
+        if lexema_token in self.lexico.tokens_pR.keys() or lexema_token =="id":
+            return lexema_token
+        elif lexema_token == "tkn_integer":
+            return "valor_entero" 
+        elif lexema_token == "tkn_real":
+            return "valor_real"
+        elif lexema_token == "tkn_str":
+            return "cadena_de_caracteres"  
+        elif lexema_token == "tkn_char": 
+            return "caracter_simple"    
+        for clave, valor in self.lexico.operadores_tokens.items():
+            if valor == lexema_token[4:]:
+                return clave 
+        return(self.token) 
+    
+    def salidaConjuntoLexema(self, conjuntoTokens):
+        conjuntoTokens.sort()
+        conjunto2=[]
+        for c in conjuntoTokens:
+            conjunto2.append(\"\\"\"+self.salidaLexema(c)+\"\\\"\")
+        
+        return conjunto2
+    
+                      """)
+        
         codigo.append(" ")
-        codigo.append("def emparejar(tknEsperado):")
-        codigo.append("    if ( token == tknEsperado ):")
-        codigo.append("        token= lexico.getNextToken()")
-        codigo.append("    else:")
-        codigo.append("        errorSintaxis([tknEsperado])")
+        
+        codigo.append("    def errorSintaxis(self,conjunto):")
+        codigo.append("        if (self.errorSintacticoEncontrado==True):")
+        codigo.append("            return(self.resultado)")
+        codigo.append("        print(self.token,conjunto)")
+        error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+self.salidaLexema(self.token)+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
+        codigo.append("        self.resultado="+error)
+        codigo.append("        self.errorSintacticoEncontrado=True")
+        codigo.append("        return(self.resultado)")
+        
+        
+        
+        codigo.append(" ")
+        codigo.append("    def emparejar(self,tknEsperado):")
+        codigo.append("        if (self.errorSintacticoEncontrado==True):")
+        codigo.append("            return")
+        codigo.append("        if ( self.token == tknEsperado ):")
+        codigo.append("            self.token= self.lexico.getNextToken()")
+        codigo.append("        else:")
+        codigo.append("            self.errorSintaxis([tknEsperado])")
         
 
         for nodoNoTerminal in self.elementos_gramatica.gram.keys():
@@ -95,17 +152,23 @@ class generarCodigoAnalizador:
             codigo.append(" ")
 
         
-        codigo.append("if __name__ == \"__main__\":")
-        codigo.append("    lexico=Lexer(sys.stdin.readlines())")
-        codigo.append("    token= lexico.getNextToken()")
-        codigo.append("    "+inicio+"()")
-        codigo.append("    if (token != \"FINAL ARCHIVO\" ):")
-        codigo.append("        errorSintaxis([\"FINAL ARCHIVO\"])")
+        codigo.append("    def main(self):")
+        codigo.append("        self."+inicio+"()")
+        codigo.append("        if (self.errorSintacticoEncontrado==True):")
+        codigo.append("            return(self.resultado)")
+        codigo.append("        if (self.token != \"final de archivo\" ):")
+        codigo.append("            return self.errorSintaxis([\"final de archivo\"])")
+        codigo.append("        return(self.resultado)")
+        codigo.append(" ")
+        codigo.append(" ")
+
+
         
         with open('src/analizadorSintactico.py', 'w', encoding="utf-8") as f:
             for linea in codigo:
                 f.write(linea+"\n")
         return codigo
+        
         
         
         
@@ -117,11 +180,7 @@ generador.elementos_gramatica.imprimir()
 
 generador.generarCodigoGeneral()
 
-print(generador.elementos_gramatica.esLL1)
 codigo=generador.generar_funcion_nodo_no_terminal('A')
-
-for linea in codigo:
-    print(linea)
 
 
             

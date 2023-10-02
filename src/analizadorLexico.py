@@ -4,11 +4,16 @@ import copy
 
 
 class Lexer:
+
     def __init__(self,codigo):
         
         self.newToken=False
         
         self.nToken=-1
+        
+        self.lastToken=""
+        self.fila_token = "1"
+        self.columna_token = "1"
         
         self.inside_comment=False
         self.inside_comilla=False
@@ -164,7 +169,7 @@ class Lexer:
         tfinal=len(self.tkns)
         
         if tinicial==tfinal:
-            self.tkns.append("FINAL ARCHIVO")
+            self.tkns.append("<final de archivo>")
         
         return self.tkns
        
@@ -244,7 +249,7 @@ class Lexer:
         self.linea=""
         self.newToken=True
         if self.errorflag==True:
-            self.tkns.append("FINAL ARCHIVO")
+            self.tkns.append("<final de archivo>")
           
  
     #Reemplaza por espacios en blanco
@@ -329,7 +334,34 @@ class Lexer:
     def getNextToken(self):
         self.getTokens()
         self.nToken=self.nToken+1
-        return self.tkns[self.nToken]
+        self.lastToken = self.tkns[self.nToken]
         
-
+        elementos= self.lastToken[1:len(self.lastToken)-1].split(',')
+        
+        self.tipo_token = elementos[0]
+        
+        if self.lastToken!="<final de archivo>":
+            self.fila_token = elementos[len(elementos)-2]
+            self.columna_token = elementos[len(elementos)-1]
+        elif self.lastToken=="<final de archivo>":
+            self.fila_token = str(int(self.fila_token)+1)
+            self.columna_token = "1"
+        
+        return self.tipo_token
+        
+    def getNextTokenTest(self):
+        self.getTokens()
+        self.nToken=self.nToken+1
+        self.lastToken = self.tkns[self.nToken]
+        
+        elementos= self.lastToken[1:len(self.lastToken)-1].split(',')
+        
+        self.tipo_token = elementos[0]
+        
+        self.fila_token = elementos[len(elementos)-2]
+        self.columna_token = elementos[len(elementos)-1]    
+        
+        
+            
+        return self.tkns[self.nToken]
 

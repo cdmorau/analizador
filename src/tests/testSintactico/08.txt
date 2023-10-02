@@ -1,0 +1,22 @@
+entero global
+
+funcion suma: entero
+        
+        inicio
+          retorne n1+n2
+        fin
+funcion resta: entero
+       inicio
+          retorne n1-n2
+        fin
+
+funcion multiplicacion: entero
+       inicio
+          retorne n1*n2
+       fin
+
+funcion division: entero
+       llamar nueva_linea
+       inicio
+          retorne global/n2
+       fin

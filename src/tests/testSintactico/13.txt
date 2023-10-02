@@ -1,0 +1,14 @@
+procedimiento my_function
+arreglo[5,2] de real matrix
+
+inicio
+
+    retorne matrix
+// Ay, verdad que los procedimientos no deben retornar nada 
+fin
+
+inicio
+
+ llamar my_function
+
+fin

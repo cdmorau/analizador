@@ -1,0 +1,5 @@
+Inicio
+   mientras (a<5*2) y (b=verdadero) haga
+        llamar procedure('a')
+   fin mientras
+Fin

@@ -17,16 +17,18 @@ class predicciones:
         
         if type(cadena)==type([]):
             return cadena
-        
+        #re.match(r'[a-z_]+',cadena)
+        #re.match(r'[a-z_]+',cadena)
+        #re.match(r'[^a-z_ε]+',cadena)
         # Usamos una expresión regular para separar las mayúsculas de las minúsculas
-        partes = re.findall(r'[A-Z]|[a-z_]+', cadena)
+        partes = re.findall(r'[^a-z_]+|[a-z_]+', cadena)
         
         # Concatenamos las mayúsculas individuales y las cadenas de minúsculas
         resultado = []
         buffer_mayusculas = ""
         
         for parte in partes:
-            if parte.isupper():
+            if re.match(r'[^a-z_ε]+',parte):
                 buffer_mayusculas += parte
             else:
                 if buffer_mayusculas:
@@ -54,9 +56,11 @@ class predicciones:
         producciones= self.gram.get(nodoNoTerminal)
         
         cont=0
+        
         for p in producciones:
             if 'ε' in p:
                 return True
+            
             if p[0].islower() or p[0] == "_":
                 cont=cont+1
         if cont==len(producciones):
@@ -103,7 +107,7 @@ class predicciones:
             
             conjuntoPrimeros.add(produccion[0])
         #Si el elemento es un caracter en mayusculas
-        elif produccion[0].isupper():
+        elif re.match(r'[^a-z_ε]+',produccion[0]):
             
             
             for nodo in produccion:
@@ -114,7 +118,7 @@ class predicciones:
                     else:
                         break
                 
-                if nodo.isupper():   
+                if re.match(r'[^a-z_ε]+',nodo):   
                     if nodo in noTerminalesContenidos:
                         
                         if self.nodo_has_empty(nodo)==False: 
@@ -182,6 +186,7 @@ class predicciones:
                         
                         
                     elif self.nodo_has_empty(nodoNoTerminal):
+                        
                         continue
                     
                     
@@ -194,7 +199,7 @@ class predicciones:
                         conjuntoSiguientes.add(nodo_siguiente)
                     
                         
-                    elif nodo_siguiente.isupper():
+                    elif re.match(r'[^a-z_ε]+',nodo_siguiente):
                         #Si encuentro en el siguiente nodo un nodo no terminal, al conjunto de siguientes se agregan el conjunto de primeros del nodo encontrado
                         conjuntoSiguientes.update(self.primerosNoTerminales[nodo_siguiente])
                         if self.nodo_has_empty(nodo_siguiente):
@@ -255,7 +260,7 @@ class predicciones:
         elif produccion[0].islower() or produccion[0]=="_":
             conjuntoPrediccion.add(produccion[0])
         
-        elif produccion[0].isupper():
+        elif re.match(r'[^a-z_ε]+',produccion[0]):
             conjuntoPrediccion.update(self.primerosNoTerminales[produccion[0]])
             conjuntoPrediccion.discard('ε')
             

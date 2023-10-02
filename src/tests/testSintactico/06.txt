@@ -1,0 +1,8 @@
+funcion function(): entero
+    inicio
+       llamar nueva_linea
+    fin
+
+inicio
+    escriba "Parsing is insane"
+fin

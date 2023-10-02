@@ -1,0 +1,8 @@
+inicio
+  x[alguna_posicion] <- 2*5.0/x[1]
+  // listo, corregido
+  lea y.size
+  // verdad que y es una palabra reservada 
+  r<-alguna_funcion(fun,cion)
+  EOF = "yes"
+fin

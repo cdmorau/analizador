@@ -1,0 +1,20 @@
+// Evaluamos condicionales anidades
+real x
+inicio
+
+   si x<>5.0 entonces
+      lea x
+      sino si x>8.0 entonces
+         x <- x-(RandomNumber(0,10))
+
+      si x="amix" entonces
+         lea x
+      sino si x<5.0 entonces
+         x <- x-(RandomNumber(0,10))
+      fin si 
+        
+   fin si
+   fin si
+   fin si
+
+fin

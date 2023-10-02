@@ -1,0 +1,10 @@
+real n1,n2
+
+Inicio
+
+ n1<-(2/3)*5+2^2
+ n2<-50+22 div (14-7) mod 2
+ // imprimimos los valores
+ escriba n1, ' ' , n2
+
+FIN
