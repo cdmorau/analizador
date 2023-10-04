@@ -53,6 +53,7 @@ class predicciones:
         return gram
     
     def nodo_has_empty(self,nodoNoTerminal):
+        
         producciones= self.gram.get(nodoNoTerminal)
         
         cont=0
@@ -77,6 +78,9 @@ class predicciones:
                 
                 vacio=True
                 for cadena in p:
+                    #AQUI SE ELIMINA RECURSION
+                    # if cadena == nodoNoTerminal:
+                    #     continue
                     if self.nodo_has_empty(cadena):
                         continue
                     else:
@@ -322,13 +326,18 @@ class predicciones:
                         conjuntoPrueba.update(self.prediccionNoTerminales.get(produccion))
                     #Si hay elementos en ella retornar Falso
                     else:
-                        
+                        print(produccion[0],conjuntoPrueba & self.prediccionNoTerminales.get(produccion))
                         return False
         return True
                               
 
+p = predicciones(gramaticaOperador,'S')
+
+p.imprimir()
+print(p.isLL1())
 
 p = predicciones(estructuraGeneral,'S')
+
 p.imprimir()
 print(p.isLL1())
 

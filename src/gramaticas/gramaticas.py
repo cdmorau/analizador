@@ -48,13 +48,13 @@ Z: Coma
 Ù:
 Ä:
 Ë:
-Ï:
-Ö:
-Ü:
-Â:
-Ê:
-Î:
-Ô:
+Ï:token de -
+Ö: Variable para mod
+Ü: Otro G pero sin arreglo para el retorno de funciones
+Â: A que puede retornar en algun punto
+Ê: corchetes de declaración de arreglo normal o binimencional
+Î: Atributos
+Ô: Parentecis para llamado de funciones con llamar
 Û: Fin solito 
 Å: Serie de registros
 Ã: Abre parentesis
@@ -74,26 +74,27 @@ estructuraGeneral = {
     #Acciones entre inicio y fin B = asignaciones<-,  E= Estructura escribir, L= Estructura Lea H= Estructuras SI,else,sino
     #C estructura Casos   # N= estructura nueva linea M=Estructura mientras  I = estructura repita T= Estructura Para   Q=eliminacion de recursividad
     'A': ['BA','CA','escribaEA','LA','HA','llamarNA','MA','IA','TA','ε'],
+    'Â': ['BÂ','CÂ','escribaEÂ','LA','HÂ','llamarNÂ','MÂ','IÂ','TÂ','ŌÂ','ε'],
     
     
     #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
-    'D': ['funcionFD','PD', 'ε'],
+    'D': ['funcionFD','procedimientoPD', 'ε'],
     'Ð': ['ÀÐ', 'ε'],
     
     # Derivados de D
     'R':['registroÅÛregistroR','ε'],
     'V':['GidYV','ε'],
-    'F':['idĪtkn_colonGÐinicioAŌfin'],
-    'P':['procedimiento'],
+    'F':['idĪtkn_colonÜÐinicioÂfin'],
+    'P':['idĪÐinicioAfin'],
     
     # Derivados de A
     # n1<-(2/3)*5+2^2
     'B':['idXÍ'],
     'C':['caso'],
-    'E':['UÚ'],
+    'E':['ÍÚ'],
     'L':['lea'],
     'H':['si'],
-    'N':['nueva_linea'],
+    'N':['nueva_linea','idÔ'],
     'M':['mientras'],
     'I':['repita'],
     'T':['para'],
@@ -104,25 +105,58 @@ estructuraGeneral = {
     'Ý':['ZidÝ','ε'],
     
     #Cadenas caracteres e identificadores separados por comas
-    'U':['tkn_str','tkn_char','id'],
-    'Ú':['ZUÝ','ε'],
+    #'U':['tkn_str','tkn_char','id'],# puedo no necesitarlo
+    'Ú':['ZÍÝ','ε'],
     'Z':['tkn_comma'],
     # Estructura para tipos de dato
-    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJKO','arregloJKO','id'],
+    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJKO','arregloJKÊOdeG','id'],
+    'Ü':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJKO','id','real'],
+    'Ê':['ZK','ε'],
     # Estructura para definir tamaño
     'J':['tkn_opening_bra'],
     'K':['tkn_integer'],
     'O':['tkn_closing_bra'],
     'X':['tkn_assign'],
     #operaciones
-    'Í':['ÉÓ'],
-    'Ó':['QÉÓ','ε'],
+    
+    #x <- -3+(5.76*2/x mod (10.0)-9
+    #Í
+    #-Í
+    #-ÉÓ
+    #-3Ó
+    #-3+Í
+    #-3+(Í)
+    #-3+(ÉÓ)
+    #-3+(5.76Ó)Ó
+    #-3+(5.76*Í)Ó
+    #-3+(5.76*2Ó)Ó
+    #-3+(5.76*2/xÓ)Ó
+    #-3+(5.76*2/xmodÍ)Ó
+    #-3+(5.76*2/xmod(Í)Ó)Ó
+    #-3+(5.76*2/xmod(ÉÓ)Ó)Ó
+    #-3+(5.76*2/xmod(-ÍÓ)Ó)Ó
+    #-3+(5.76*2/xmod(-9ÓÓ)Ó)Ó
+    
+    
+    
+    
+    
+    'Ë':['ÉÄ','tkn_opening_parËtkn_closing_parÄ','tkn_minusË'],
+    'Ä':['QË','ε'],
+
+    'Í':['ÉÓ','tkn_opening_parËtkn_closing_parÓ','tkn_minusÍ'],
+    'Ó':['QÍ','ε'],
+    #'Ë':['ε','QÍ'],
+    
+    
     #Operadores aritmeticos
-    'Q':['tkn_plus', 'tkn_minus', 'tkn_times', 'tkn_div', 'tkn_power','div','mod'],
+    'Q':['tkn_plus', 'tkn_times', 'tkn_div', 'tkn_power','div','mod','y','o','tkn_neq','tkn_leq','tkn_geq','tkn_minus','tkn_equal','tkn_less',"tkn_greater"],
+
     #variables
-    'É':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idÁ','tkn_opening_parÍtkn_closing_par'],
+    'É':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idÁ'],
+    
     #distinciones id normal y llamado de arreglo
-    'Á':['JKO','ε'],
+    'Á':['JKO','Ô'],
     #Variables para determinar declaraciones de variables separadas por comas y encerradas en parentesis
     'Ã':['tkn_opening_par'],
     'Õ':['tkn_closing_par'],
@@ -130,22 +164,43 @@ estructuraGeneral = {
     'Ā':['ZW','ε'],
     'Ē':['var','ε'],
     'Ī':['ÃWÕ','ε'],
-    'Ō':['retorneÍ','ε'],
+    'Ō':['retorneÍ'],
     'Ū':['id'],
     
     'À':['GidÝ'],
     'Å':['ÀÅ','ε'],
     'Û':['fin'],
+    'Ô':['tkn_opening_parÎtkn_closing_par','ε'],
+    'Î':['Í','ε']
     
     
-    
-    
-    
+    #Parentesis que permite estar vacio o tener una serie de valores semarados por comas 
+
     
     #Letras sin usar J, K, Ñ, O, U, X, Z 
 }
 
 #Estructura para probar escenarios de eliminacion de recursividad
+
+gramaticaOperador={
+    
+    'S':['ÉÓ','tkn_opening_parStkn_closing_parÓ','tkn_minusS'],
+    
+    'Ó':['QS','ε'],
+    
+    #Operadores aritmeticos
+    'Q':['tkn_plus', 'tkn_times', 'tkn_div', 'tkn_power','div','mod','y','o','tkn_neq','tkn_leq','tkn_geq','tkn_minus','tkn_equal','tkn_less',"tkn_greater"],
+
+    #variables
+    'É':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','id'],
+    
+    #abre-S-cierra-T   - abre-abre-S-cierra-T-cierra-T
+    #abre-abre-10.0-cierra-menos9T-cierra-T
+    
+    #((10.0)-9
+    
+}
+
 
 gramaticaRecursiva={
 

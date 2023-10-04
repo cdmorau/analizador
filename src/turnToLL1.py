@@ -90,7 +90,7 @@ def eliminarFactoresComunesPorLaIzquierda(nodoNoTerminal,gramatica):
         
 
 
-g=gramaticaConFactorComun
+g=gramaticaOperador
 eliminarFactoresComunesPorLaIzquierda('A',g)
 
 print("{")

@@ -341,6 +341,7 @@ class Lexer:
         self.tipo_token = elementos[0]
         
         if self.lastToken!="<final de archivo>":
+            self.lexema_token = elementos[len(elementos)-3]
             self.fila_token = elementos[len(elementos)-2]
             self.columna_token = elementos[len(elementos)-1]
         elif self.lastToken=="<final de archivo>":

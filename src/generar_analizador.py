@@ -112,6 +112,8 @@ class generarCodigoAnalizador:
         for clave, valor in self.lexico.operadores_tokens.items():
             if valor == lexema_token[4:]:
                 return clave 
+        if lexema_token=='$':
+            return ("final de archivo")
         if lexema_token == \"final de archivo\":
             return(self.token) 
         print(\"No se reconoce token\",lexema_token)
@@ -124,6 +126,11 @@ class generarCodigoAnalizador:
         
         return conjunto2
     
+    def seEsperaba(self,lexema_token):
+        if (lexema_token == "tkn_integer") or (lexema_token == "tkn_str") or (lexema_token == "tkn_real") or (lexema_token == "tkn_char") or (lexema_token == "id"):
+            return self.lexico.lexema_token
+        else: return(self.salidaLexema(lexema_token))
+    
                       """)
         
         codigo.append(" ")
@@ -132,7 +139,7 @@ class generarCodigoAnalizador:
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return(self.resultado)")
         codigo.append("        print(self.token,conjunto)")
-        error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+self.salidaLexema(self.token)+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
+        error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+self.seEsperaba(self.token)+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
         codigo.append("        self.resultado="+error)
         codigo.append("        self.errorSintacticoEncontrado=True")
         codigo.append("        return(self.resultado)")
