@@ -55,7 +55,7 @@ class generarCodigoAnalizador:
         codigo=[]
         
         codigo.append("    def "+nodoNoTerminal+"(self):")
-        codigo.append("        print(\""+nodoNoTerminal+"\")")
+        #codigo.append("        print(\""+nodoNoTerminal+"\")")
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return")
         
@@ -112,19 +112,36 @@ class generarCodigoAnalizador:
         for clave, valor in self.lexico.operadores_tokens.items():
             if valor == lexema_token[4:]:
                 return clave 
-        if lexema_token=='$':
+        if lexema_token=='final de archivo':
+            self.lexico.fila_token= str(int(self.lexico.fila_token))
             return ("final de archivo")
-        if lexema_token == \"final de archivo\":
-            return(self.token) 
-        print(\"No se reconoce token\",lexema_token)
+        if lexema_token=='$':
+            self.lexico.fila_token= str(int(self.lexico.fila_token)+1)
+            return ("fin de archivo")
+        
+        #print(\"No se reconoce token\",lexema_token,self.lexico.lastToken)
     
     def salidaConjuntoLexema(self, conjuntoTokens):
-        conjuntoTokens.sort()
-        conjunto2=[]
-        for c in conjuntoTokens:
-            conjunto2.append(\"\\"\"+self.salidaLexema(c)+\"\\\"\")
         
-        return conjunto2
+        conjunto2=[]
+        for c in range(len(conjuntoTokens)):
+            
+            if conjuntoTokens[c] in ["tkn_char","tkn_str","tkn_caracter","tkn_integer","tkn_real"] or (conjuntoTokens[c] in self.lexico.tokens_pR.keys()) or (conjuntoTokens[c] =="id"):
+                conjuntoTokens[c]=self.salidaLexema(conjuntoTokens[c])
+
+            
+        conjuntoTokens.sort()
+        #print(conjuntoTokens)
+        for d in range(len(conjuntoTokens)):
+            #print(d)
+
+            if "tkn_" == conjuntoTokens[d][0:4]:
+                conjuntoTokens[d]=\"\\"\"+self.salidaLexema(conjuntoTokens[d])+\"\\\"\"
+            else:
+                conjuntoTokens[d]=\"\\"\"+ conjuntoTokens[d] +\"\\\"\"
+        #print(conjuntoTokens)
+        return conjuntoTokens   
+
     
     def seEsperaba(self,lexema_token):
         if (lexema_token == "tkn_integer") or (lexema_token == "tkn_str") or (lexema_token == "tkn_real") or (lexema_token == "tkn_char") or (lexema_token == "id"):
@@ -138,8 +155,9 @@ class generarCodigoAnalizador:
         codigo.append("    def errorSintaxis(self,conjunto):")
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return(self.resultado)")
-        codigo.append("        print(self.token,conjunto)")
-        error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+self.seEsperaba(self.token)+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
+        #codigo.append("        print(self.token,conjunto)")
+        error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+t+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
+        codigo.append("        t=self.seEsperaba(self.token)")
         codigo.append("        self.resultado="+error)
         codigo.append("        self.errorSintacticoEncontrado=True")
         codigo.append("        return(self.resultado)")

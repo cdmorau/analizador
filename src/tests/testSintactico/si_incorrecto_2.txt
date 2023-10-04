@@ -1,0 +1,14 @@
+inicio
+
+si 5^2 = 25 y 25 mod 5 = 0 entonces
+// Error semántico
+
+/* debemos agrupar primero
+expresiones aritméticas y
+relacionales */
+
+escriba "el 25 es poderoso"
+
+fin si
+
+fin

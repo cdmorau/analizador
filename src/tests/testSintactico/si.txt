@@ -1,0 +1,86 @@
+// Correcto
+
+inicio
+
+si (10<30) entonces
+
+/* Podemos agrupar operaciones relacionales con () */
+escriba "Learning LPP is fun"
+
+fin si
+
+si 10<30 entonces
+
+/* No es necesario agrupar operaciones relacionales con ()*/
+// Correcto
+escriba "Learning LPP is fun"
+
+fin si
+
+
+
+si (10<30) entonces
+
+/* Podemos agrupar operaciones relacionales con () */
+
+escriba "Learning LPP is fun"
+
+fin si
+
+
+// Correcto
+
+
+si 10<30 entonces
+
+/* No es necesario agrupar operaciones relacionales con ()*/
+
+escriba "Learning LPP is fun"
+
+fin si
+
+
+
+si (10+(2*1))<30 entonces
+
+/* Podemos agrupar solo las operaciones aritméticas con () */
+
+escriba "Learning LPP is fun"
+
+fin si
+
+si ((10+(2*1))<((30))) entonces
+
+/* Podemos agrupar las expresiones aritméticas y relacionales las veces que yo quiera con () */
+
+escriba "Learning LPP is fun"
+
+fin si
+
+si (5^2 = 25) y (25 mod 5 = 0) entonces
+// Este código si funciona
+
+/* Se agrupan primero
+expresiones aritméticas y
+relacionales */
+
+escriba "el 25 es poderoso"
+
+fin si
+
+si ((5^2 = 25) y (25 mod 5 = 0)) entonces
+// Este código si funciona
+
+/* Una vez hemos agrupado las
+expresiones aritméticas y las
+relacionales, LPP nos permite de
+agrupar expresiones lógicas */
+
+escriba "el 25 es poderoso"
+
+fin si
+
+
+
+
+fin

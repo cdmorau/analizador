@@ -1,0 +1,15 @@
+inicio
+
+si (5^2 = 25 y 25 mod 5 = 0) entonces
+// Error semántico
+
+/* aunque en muchos lenguajes esto
+está semánticamente correcto
+LPP es más estricto con
+la agrupación */
+
+escriba "el 25 es poderoso"
+
+fin si
+
+fin

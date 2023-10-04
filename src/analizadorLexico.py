@@ -54,7 +54,7 @@ class Lexer:
             "arreglo":"arreglo",
             "escriba":"escriba",
             "retorne":"retorne",
-            "funcion":"funcion",            
+            "funcion":"funcion",
             "inicio":"inicio",
             "llamar":"llamar",
             "repita":"repita",

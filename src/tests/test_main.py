@@ -73,8 +73,24 @@ def test_getnew(entrada):
         ("13"),
         ("14"),
         ("17"),
+        ("18"),
+        ("21"),
+        ("22"),
+        ("23"),
+        ("24"),
         
-                     
+        ("26"),
+        ("28"),
+        ("40"),
+        ("41"),
+        ("42"),
+        ("43"),
+        ("44"),
+        ("si"),
+        ("si_incorrecto"),
+        ("si_incorrecto_2"),
+        ("25"),
+      
     ]
 )
 def test_Sintactico(nombreArchivo):
