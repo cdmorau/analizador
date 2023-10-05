@@ -6,6 +6,7 @@ from gramaticas.gramaticas import *
 
 class predicciones:
     def __init__(self,gram,inicio):
+        
         self.inicio = inicio
         self.gram = self.traducir(gram)
         self.primerosNoTerminales = self.primerosAll()
@@ -42,8 +43,9 @@ class predicciones:
         return resultado
     
     def traducir(self,gram):
+        
         for k in gram.keys():
-
+            
             for i in range(len(gram.get(k))) :
                 if gram.get(k)[i] == 'ε':
                     gram.get(k)[i]=['ε']
@@ -162,6 +164,7 @@ class predicciones:
     def primerosAll(self):
         conjuntosPrimeros = {}
         for k in self.gram.keys():
+            #print(k,self.gram.get(k))
             noTerminalesContenidos=[]
             conjuntosPrimeros[k]=self.primerosNodo(k,noTerminalesContenidos)
         return conjuntosPrimeros
@@ -249,6 +252,7 @@ class predicciones:
         
         conjuntosSiguientes = {}
         for nodoNoTerminal in self.gram.keys():
+            #print(nodoNoTerminal ,self.gram.get(nodoNoTerminal))
             noTerminalesContenidos=[]
             conjuntosSiguientes[nodoNoTerminal]=self.siguientesNodo(nodoNoTerminal,noTerminalesContenidos)
             
@@ -326,7 +330,7 @@ class predicciones:
                         conjuntoPrueba.update(self.prediccionNoTerminales.get(produccion))
                     #Si hay elementos en ella retornar Falso
                     else:
-                        print(produccion[0],conjuntoPrueba & self.prediccionNoTerminales.get(produccion))
+                        #print(produccion[0],conjuntoPrueba & self.prediccionNoTerminales.get(produccion))
                         return False
         return True
                               

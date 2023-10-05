@@ -78,7 +78,7 @@ def test_getnew(entrada):
         ("22"),
         ("23"),
         ("24"),
-        
+        ("25"),
         ("26"),
         ("28"),
         ("40"),
@@ -89,7 +89,8 @@ def test_getnew(entrada):
         ("si"),
         ("si_incorrecto"),
         ("si_incorrecto_2"),
-        ("25"),
+        ("caso"),
+        ("fin"),
       
     ]
 )

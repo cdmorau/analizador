@@ -1,0 +1,11 @@
+// haber que sucede si combino operadores relacionales
+
+inicio
+
+  si b < b <b entonces
+
+escriba "LPP es muy cool"
+
+fin si
+
+fin

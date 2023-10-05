@@ -4,6 +4,3 @@ funcion my_function(entero a): entero
    fin
 
 funcion second_function: real
-
-
-

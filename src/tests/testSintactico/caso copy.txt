@@ -1,0 +1,1 @@
+<5:12> Error sintactico: se encontro: "<"; se esperaba: "div", "entonces", "mod", "o", "/", "-", "[", "(", ".", "+", "^", "*", "y".

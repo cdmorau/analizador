@@ -7,6 +7,8 @@ class Lexer:
 
     def __init__(self,codigo):
         
+        self.size=str(len(codigo)+1)
+        
         self.newToken=False
         
         self.nToken=-1
