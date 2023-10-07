@@ -18,7 +18,7 @@ G: Tipos de dato
 H: Estructuras de Si
 I: Estructura de repita
 J: Abrir parentesis cuadrado
-K:
+K:--
 L: Estructura de Lea
 M: Estructura de mientras
 N: Estructura de nueva linea
@@ -31,8 +31,8 @@ S: Nodo inicial
 T: Estructura de For o para
 U: Cadenas identificadores e ids
 V: Estructura para definir variables
-W:
-X: 
+W: ---
+X: --
 Y: Estructura de identificadores continuos
 Z: Coma
 Á: division para identificadores
@@ -40,8 +40,8 @@ Z: Coma
 Í: Operaciones
 Ó: Nodo auxiliar operaciones
 Ú: Combinación separada por comas de U
-Ý: Otro Y
-À:
+Ý: Otro Y 
+À: À W Ã Õ 
 È: valor inicial asignacion despues de id
 Ì: valor inicial asignacion despues de id
 Ò: valor inicial asignacion despues de id
@@ -57,35 +57,39 @@ Z: Coma
 Ô: Parentecis para llamado de funciones con llamar
 Û: Fin solito 
 Å: Serie de registros
-Ã: 
-Õ: 
+Ã: --
+Õ: --
 Ā: coma declaracion variable y coma
 Ē: dospunto tipo de variable de retorno o nada
 Ī: Parentesis con definicion de variables
-Ō: 
 Ū: id solito u.u
 
-
-
-Ů =
+Ō-
+Ů-
+N̆-X
+Ŏ-
+Ĉ-
+Ḓ-
+Ḙ-
+Ĝ
 Ă = concatenacion de valores que no contienen identificadores
 Ĕ = valores que no tienen identificadores
 Ğ= continuacion caso
 Ḫ= otra A
 Ĭ= valor para terminar concatenacion identificadores
 
-N̆= otra A
-Ŏ
-Ŭ
 
-Ĉ Ḓ Ḙ Ĝ Ĥ Ĵ Ḽ Ṋ Ŝ Ṱ Ṷ Ŵ Ŷ Ẑ
+
+Ŭ--
+
+    Ĥ Ĵ Ḽ Ṋ Ŝ Ṱ Ṷ Ŵ Ŷ Ẑ
 
 Ḧ N̈  S̈ T̈ Ṳ Ẅ Ẍ Ÿ
 
 Ø:
 Æ:
 
-Ȧ* Ạ* Ḃ* Ḅ* Ċ- Ḋ* Ḍ* Ė* Ẹ* Ḟ* Ġ* Ḣ* Ḥ İ Ị Ḳ Ŀ Ḷ Ḹ Ṁ Ṃ Ṅ Ṇ Ȯ K Ọ Ṗ Ṙ Q̇ Ṛ Ṡ Ṣ Ṫ Ṭ Ụ Ṿ Ẇ Ẉ Ẋ Ẏ 
+Ȧ* Ạ* Ḃ* Ḅ* Ċ- Ḋ* Ḍ* Ė* Ẹ* Ḟ* Ġ* Ḣ* Ḥ İ Ị* Ḳ Ŀ Ḷ Ḹ Ṁ Ṃ Ṅ Ṇ Ȯ K Ọ Ṗ Ṙ Q̇ Ṛ Ṡ Ṣ Ṫ Ṭ Ụ Ṿ Ẇ Ẉ Ẋ Ẏ 
 """
 
 
@@ -93,10 +97,11 @@ N̆= otra A
 
 estructuraGeneral = {
     # Registros VariablesDeclaradas y Funciones y procedimientos 
-    'S': ['RVDinicioAfin'],
-
+    'S': ['RVDinicioṬfin'],
+    'Ṭ':['Ẋ','ε'],
+    
     #REGISTROS INICIA, CIERRA E INICIA OTROS REGISTROS
-    'R':['registroÅÛregistroR','ε'],
+    'R':['registroŪÅÛregistroR','ε'],
     
     #Tipos de dato y asignacion de una variable particular INICIA  Å
     'Å':['GidÝÅ','ε'],
@@ -128,22 +133,15 @@ estructuraGeneral = {
     #Declaración de variables a nivel interno
     'Ð': ['GidÝÐ', 'ε'],
     #Acciones para funciones donde es posible retornar en cualquier parte
-    'Â': ['BÂ','CÂ','escribaEÂ','leaLA','HÂ','llamarNÂ','MÂ','IÂ','TÂ','retorneÍÂ','ε'],
+    'Â': ['BÂ','CÂ','escribaEÂ','leaLÂ','HÂ','llamarNÂ','MÂ','IÂ','TÂ','retorneÍÂ','ε'],
     
     
     # Estructura para tipos de dato
 
     #Acciones entre inicio y fin B = asignaciones<-,  E= Estructura escribir, L= Estructura Lea H= Estructuras SI,else,sino
     #C estructura Casos   # N= estructura nueva linea M=Estructura mientras  I = estructura repita T= Estructura Para   Q=eliminacion de recursividad
-    'A': ['BA','CA','escribaEA','leaLA','HA','llamarNA','MA','IA','TA','ε'],
-    #A dentro de un caso
-    'Ḫ': ['BḪ','CḪ','escribaEḪ','leaLḪ','HḪ','llamarNḪ','MḪ','IḪ','TḪ','ε'],   
-    #ara A dentro de un si
-    'Ĕ': ['BĔ','CĔ','escribaEĔ','leaLĔ','HĔ','llamarNĔ','MĔ','IĔ','TĔ','ε'],
-    #ara cuando está
-    'Ŭ': ['BŬ','CŬ','escribaEŬ','leaLŬ','HŬ','llamarNŬ','MŬ','IŬ','TŬ','ε'],
-    #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
-    'D': ['funcionFD','procedimientoŪUÐinicioAfinD', 'ε'],
+    'Ẋ': ['BṬ','CṬ','escribaEṬ','leaLṬ','HṬ','llamarNṬ','MṬ','ȦṬ','TṬ'],
+    'D': ['funcionFD','procedimientoŪUÐinicioṬfinD', 'ε'],
     'U':['tkn_opening_parĒGidĀtkn_closing_par','ε'],
     
     
@@ -151,24 +149,33 @@ estructuraGeneral = {
     # Derivados de A
     # n1<-(2/3)*5+2^2
     'B':['idÁtkn_assignÍ'],
-    'C':['casoŪĬḪtkn_colonḪĞ'],
+    'C':['casoŪtkn_integerĂtkn_colonŬĞĬ'],
     'E':['Ḍ'],
     'L':['idÈÒ'],
-    'H':['siṂentoncesĔḊ'],
+    'H':['siĿentoncesĔḊ'],
     'N':['nueva_linea','idÙ'],
-    'M':['mientrasĿhagaAÛmientras'],
-    'I':['repitaŬhastaÍ'],
+    'M':['mientrasṂhagaṬÛmientras'],
+    'I':['repitaḪhastaÍ'],
+    'Ȧ':['repitaḪhastaŌ'],
+    
+    #Version auxiliar para repita
+    'Ḫ': ['BḪ','CḪ','escribaEḪ','leaLḪ','HḪ','llamarNḪ','MḪ','IḪ','TḪ','ε'],  
+    #Auxiliar clonada para si 
+    'Ĕ': ['BĔ','CĔ','escribaEĔ','leaLĔ','HĔ','llamarNĔ','MĔ','IĔ','TĔ','ε'],
+    #Para caso
+    'Ŭ': ['BŬ','CŬ','escribaEŬ','leaLŬ','HŬ','llamarNŬ','MŬ','IŬ','TŬ','ε'],
+    
     #Me preocupa ese valor I
-    'T':['paraŪtkn_assignÍhastaĿhagaAÛpara'],
+    'T':['paraŪtkn_assignÀhastaṂhagaṬÛpara'],
 
     #Estructura de caso
-    'Ğ':['ĬĂtkn_colonḪĞ','sinoḪÛcaso','Ûcaso'],
-    'Ĭ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso'],
-    'Ă':['ZĬĂ','ε'],
+    'Ğ':['tkn_integerĂtkn_colonŬĞ','ε'],
+    'Ĭ':['sinoṬÛcaso','Ûcaso'],
+    'Ă':['Ztkn_integerĂ','ε'],
     
     
     #Estructura del si 
-    'Ḋ':['sinoAÛsi','Ûsi'],
+    'Ḋ':['sinoṬÛsi','Ûsi'],
     #Variables asociadas a LEA
     'Ò':['tkn_commaŪÈÒ','ε'],
     'È':['JÍOÌ','Ì'], 
@@ -178,16 +185,18 @@ estructuraGeneral = {
     # DEFINICION DE VALOR
 
     'Í':['ÉÓ','tkn_opening_parËtkn_closing_parÓ','tkn_minusÍ'],
-    'Ó':['QÍ','ÆḂ','ε'],
-    'Ḃ':['ÉḄ','tkn_opening_parËtkn_closing_parḄ','tkn_minusḂ'],
-    'Ḅ':['QÍ','ε'],
+    #Operadores de todo tipo
+    'Ó':['QÍ','ÆȮ','ε'],
+    #Operadores relacionales
+    'Ȯ':['ÉẠ','tkn_opening_parËtkn_closing_parẠ','tkn_minusȮ'],
+    'Ạ':['QÍ','ε'],
     
-    #Version clonada para operaciones que se encuentran dentro de parentesis que evitan que O acepte la palabra fin
+    #Dentro de parentesis
     'Ë':['ÉÄ','tkn_opening_parËtkn_closing_parÄ','tkn_minusË'],
-    'Ä':['QË','ÆȦ','ε'],
-    #Version donde ya paso por un operador relacional
-    'Ȧ':['ÉẠ','tkn_opening_parËtkn_closing_parẠ','tkn_minusȦ'],
-    'Ạ':['QË','ε'],
+    #Habiendo pasado por un relacional
+    'Ä':['QË','ÆḂ','ε'],
+    'Ḃ':['ÉḄ','tkn_opening_parËtkn_closing_parḄ','tkn_minusḂ'],
+    'Ḅ':['QË','ε'],
     
     #VALOR
     'É':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idÙ'],
@@ -204,43 +213,33 @@ estructuraGeneral = {
     'Ḍ':['ÍÚ'],
     'Ú':['ZÍÚ','ε'],
     #FIN DEFINICION DE VALOR
+    
+    
+    
+    #'Ạ':['QḂ','ε'],
+    
+    
+    
+    
+    
+    
+    # Dentro de parentesis y habiendo pasado por un relacional
+    #'Ị':['ÉḄ','tkn_opening_parÍtkn_closing_parḄ','tkn_minusỊ'],
+    
+    
+    
+    
+    #Version clonada para operaciones que se encuentran dentro de parentesis que evitan que O acepte la palabra fin
+    
+    # 'Ä':['QË','ÆỊ','ε'],
+    # #Version donde ya paso por un operador relacional
+    # 'Ȧ':['ÉẠ','tkn_opening_parËtkn_closing_parẠ','tkn_minusȦ'],
+    # 'Ạ':['QȦ','ε'],
+    #Version donde ya paso por un operador relacional y está entre parentesispppppppppppp
+    # 'Ị':['ÉỤ','tkn_opening_parËtkn_closing_parỤ','tkn_minusỊ'],
+    # 'Ụ':['QỊ','ε'],
 
-    #VERSION AUXILIAR DE VALOR para if
 
-    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
-    'Ṃ':['ÉṀ','tkn_opening_parËtkn_closing_parṀ','tkn_minusṂ'],
-    'Ȯ':['İK','tkn_opening_parËtkn_closing_parK','tkn_minusȮ'],
-    'Ṁ':['QṂ','ÆȮ','ε'],
-    'K':['QṂ','ε'],
-    #VALOR
-    'İ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idṪ'],
-    #llamado de funciones y arreglos multidimensionales
-    'Ṫ':['JÍÚOṪ','tkn_periodŪṪ','tkn_opening_parÎtkn_closing_parṪ','ε'],
-    
-    #VERSION AUXILIAR DE VALOR para mientras
-    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
-    'Ŀ':['ÉỌ','tkn_opening_parËtkn_closing_parỌ','tkn_minusĿ'],
-    'Ṗ':['ṢṘ','tkn_opening_parËtkn_closing_parṘ','tkn_minusṖ'],
-    'Ọ':['QĿ','ÆṖ','ε'],
-    'Ṙ':['QĿ','ε'],
-    #VALOR
-    'Ṣ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idṄ'],
-    #llamado de funciones y arreglos multidimensionales
-    'Ṅ':['JÍÚOṄ','tkn_periodŪṄ','tkn_opening_parÎtkn_closing_parṄ','ε'],
-    
-    
-    #VERSION AUXILIAR DE VALOR para hasta
-    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
-    'Ŀ':['ÉỌ','tkn_opening_parËtkn_closing_parỌ','tkn_minusĿ'],
-    'Ṗ':['ṢṘ','tkn_opening_parËtkn_closing_parṘ','tkn_minusṖ'],
-    'Ọ':['QĿ','ÆṖ','ε'],
-    'Ṙ':['QĿ','ε'],
-    #VALOR
-    'Ṣ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idṄ'],
-    #llamado de funciones y arreglos multidimensionales
-    'Ṅ':['JÍÚOṄ','tkn_periodŪṄ','tkn_opening_parÎtkn_closing_parṄ','ε'],
-    
-    
     # PALABRAS AISLADAS
     'Ū':['id'],
     'Û':['fin'],
@@ -254,6 +253,72 @@ estructuraGeneral = {
     #Enteros seguidos de enteros para la declaración de arreglos multidimencionales
     'Ê':['Ztkn_integerÊ','ε'],
     #Comas que separan G id dentro de los registros 
+
+        
+    #A dentro de un caso
+    #'Ḫ': ['BḪ','CḪ','escribaEḪ','leaLḪ','HḪ','llamarNḪ','MḪ','IḪ','TḪ','ε'],   
+    #ara A dentro de un si
+    #'Ĕ': ['BĔ','CĔ','escribaEĔ','leaLĔ','HĔ','llamarNĔ','MĔ','IĔ','TĔ','ε'],
+    #ara cuando está
+    #'Ŭ': ['BŬ','CŬ','escribaEŬ','leaLŬ','HŬ','llamarNŬ','MŬ','IŬ','TŬ','ε'],
+    #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
+
+
+    #VERSION AUXILIAR DE VALOR para if
+
+    # Antes de un numero tkn_assign,[,(,si,mientras,haga, "," mientras
+    'Ṃ':['ÉṀ','tkn_opening_parËtkn_closing_parṀ','tkn_minusṂ'],
+    'Ȯ':['İK','tkn_opening_parËtkn_closing_parK','tkn_minusȮ'],
+    'Ṁ':['QṂ','ÆȮ','ε'],
+    'K':['QṂ','ε'],
+    #VALOR
+    'İ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idṪ'],
+    #llamado de funciones y arreglos multidimensionales
+    'Ṫ':['JÍÚOṪ','tkn_periodŪṪ','tkn_opening_parÎtkn_closing_parṪ','ε'],
+    
+    #VERSION AUXILIAR DE VALOR para si
+    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
+    'Ŀ':['ÉỌ','tkn_opening_parËtkn_closing_parỌ','tkn_minusĿ'],
+    'Ṗ':['ṢṘ','tkn_opening_parËtkn_closing_parṘ','tkn_minusṖ'],
+    'Ọ':['QĿ','ÆṖ','ε'],
+    'Ṙ':['QĿ','ε'],
+    #VALOR
+    'Ṣ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idṄ'],
+    #llamado de funciones y arreglos multidimensionales
+    'Ṅ':['JÍÚOṄ','tkn_periodŪṄ','tkn_opening_parÎtkn_closing_parṄ','ε'],
+    
+    
+    
+    #VERSION AUXILIAR DE VALOR para hasta
+    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
+    'À':['ØÃ','tkn_opening_parËtkn_closing_parÃ','tkn_minusÀ'],
+    'W':['ÉÕ','tkn_opening_parËtkn_closing_parÕ','tkn_minusW'],
+    'Ã':['QÀ','ÆW','ε'],
+    'Õ':['QÀ','ε'],
+    #VALOR
+    'Ø':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idŎ'],
+    #llamado de funciones y arreglos multidimensionales
+    'Ŏ':['JÍÚOŎ','tkn_periodŪŎ','tkn_opening_parÎtkn_closing_parŎ','ε'],
+    
+    # #VERSION AUXILIAR DE VALOR para escribir
+ 
+    # Antes de un numero tkn_assign,[,(,si,mientras,haga, ","
+    'Ō':['ḒĜ','tkn_opening_parËtkn_closing_parĜ','tkn_minusŌ'],
+    'Ů':['ḒĈ','tkn_opening_parËtkn_closing_parĈ','tkn_minusŮ'],
+    'Ĝ':['ẆŌ','ẎŮ','ε'],
+    'Ĉ':['ẆŌ','ε'],
+    #VALOR
+    'Ḓ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso','idḘ'],
+    'Ẏ':['tkn_leq','tkn_geq','tkn_equal','tkn_less','tkn_greater','tkn_neq'],
+    #llamado de funciones y arreglos multidimensionales
+    'Ḙ':['JÍĴOḘ','tkn_periodŪḘ','tkn_opening_parṾtkn_closing_parḘ','ε'],
+    'Ẇ':['tkn_plus', 'tkn_times', 'tkn_div', 'tkn_power','div','mod','y','o','tkn_minus'],
+    
+    'Ḽ':['ÍĴ'],
+    'Ĵ':['ZÍĴ','ε'],
+    'Ṿ':['ÍĴ','ε'],
+    
+
 
 }
 

@@ -1,0 +1,1 @@
+<5:1> Error sintactico: se encontro: "final de archivo"; se esperaba: "caso", "div", "escriba", "fin", "id", "lea", "llamar", "mientras", "mod", "o", "para", "repita", "si", "/", "=", ">=", ">", "<=", "<", "-", "<>", "+", "^", "*", "y".

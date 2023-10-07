@@ -1,0 +1,4 @@
+inicio
+repita 
+escriba pepe
+hasta (i=20) o (acumulador mod 5=4)

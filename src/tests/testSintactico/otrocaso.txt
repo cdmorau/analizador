@@ -1,0 +1,10 @@
+// sintaxis de instancia, asignacion y acceso a registros
+nombre_registro identificador
+
+inicio
+	
+	identificador.atributo <- valor
+	
+	escriba identificador.atributo
+	
+fin

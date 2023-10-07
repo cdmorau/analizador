@@ -91,6 +91,10 @@ def test_getnew(entrada):
         ("si_incorrecto_2"),
         ("caso"),
         ("fin"),
+        ("repita"),
+        ("caso2"),
+        ("registroos"),
+        ("otrocaso"),
       
     ]
 )

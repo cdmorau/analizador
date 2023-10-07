@@ -81,8 +81,8 @@ class predicciones:
                 vacio=True
                 for cadena in p:
                     #AQUI SE ELIMINA RECURSION
-                    # if cadena == nodoNoTerminal:
-                    #     continue
+                    if cadena == nodoNoTerminal:
+                         continue
                     if self.nodo_has_empty(cadena):
                         continue
                     else:
@@ -324,12 +324,19 @@ class predicciones:
         for nodoNoTerminal in self.primerosNoTerminales.keys():
             conjuntoPrueba=set()
             for produccion in self.prediccionNoTerminales.keys():
+                
                 if produccion[0] == nodoNoTerminal:
+                    
                     #Si la intersección de conjutos es 0 se agrega el conjunto
                     if len(conjuntoPrueba & self.prediccionNoTerminales.get(produccion))==0:
+                        
                         conjuntoPrueba.update(self.prediccionNoTerminales.get(produccion))
+                        
+                        
                     #Si hay elementos en ella retornar Falso
                     else:
+                        print(nodoNoTerminal,conjuntoPrueba&self.prediccionNoTerminales.get(produccion))
+                        
                         #print(produccion[0],conjuntoPrueba & self.prediccionNoTerminales.get(produccion))
                         return False
         return True

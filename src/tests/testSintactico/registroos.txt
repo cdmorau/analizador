@@ -1,0 +1,35 @@
+// ejemplo de registro en LPP
+
+registro estudiante
+    cadena [10] nombre
+	cadena [10] apellido
+    entero edad
+    caracter tipo_sangre
+	entero matricula
+	real promedio
+fin registro
+
+estudiante Juanito
+inicio
+	
+	Juanito.nombre <-"Juan"
+	Juanito.apellido<-"Garcia"
+	Juanito.edad <- 19
+	Juanito.tipo_sangre<-'O'
+	Juanito.matricula<-6
+	Juanito.promedio<- 4.5
+	
+	escriba "Datos del estudiante"
+	llamar nueva_linea
+	llamar nueva_linea
+	escriba "Nombre completo: ",Juanito.nombre,' ',Juanito.apellido
+	llamar nueva_linea
+	escriba "Edad: ",Juanito.edad
+	llamar nueva_linea
+	escriba "Tipo de sangre: ",Juanito.tipo_sangre
+	llamar nueva_linea
+	escriba "Matricula: ",Juanito.matricula
+	llamar nueva_linea
+	escriba "Promedio: ",Juanito.promedio
+	
+fin

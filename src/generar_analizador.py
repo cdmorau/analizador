@@ -5,6 +5,7 @@ class generarCodigoAnalizador:
         self.elementos_gramatica = predicciones(referenciGramatica,inicio)
         self.gram= self.elementos_gramatica.gram
         self.conjuntoPredicciones= self.elementos_gramatica.prediccionNoTerminales
+        self.nodoactual="S"
     
     
     def generarCadenaDeOrPrediccion(self,setPrediccion):
@@ -46,6 +47,7 @@ class generarCodigoAnalizador:
             if nodo.isupper():
                 codigo.append("            self."+nodo+"()")
             else:
+                #codigo.append("            print (\"Aqui anexo: \"+  self.lexico.lexema+\"  "+self.nodoactual+""+"\")")
                 codigo.append("            self.emparejar(" + "\""+nodo+"\""")" )
                 
         return codigo
@@ -53,31 +55,33 @@ class generarCodigoAnalizador:
     
     def generar_funcion_nodo_no_terminal(self,nodoNoTerminal):
         codigo=[]
-        
+        self.nodoactual = nodoNoTerminal
         codigo.append("    def "+nodoNoTerminal+"(self):")
-        codigo.append("        print(\""+nodoNoTerminal+"\")")
+        #codigo.append("        print(\""+nodoNoTerminal+"\")")
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return")
         
         
-        cont=0
+        cont=len(codigo)
         
         vacio=False
         for keypred in self.conjuntoPredicciones.keys():
             
             if keypred[0]==nodoNoTerminal:
-                cont=cont+1
+                
                 conjunto= self.conjuntoPredicciones.get(keypred)
-
-                if cont==1:
+                if cont==len(codigo):
+                    cont=cont+1
                     codigo.append("        if"+self.generarCadenaDeOrPrediccion(conjunto)+":")
+                    
                 else:
                     codigo.append("        elif"+self.generarCadenaDeOrPrediccion(conjunto)+":")
                 if keypred[5:len(keypred)][0] == 'ε':
+                    #codigo.append("            print (\"Aqui salto\")")
                     codigo.append("            return"            )
                 else:    
                     codigo = codigo+self.algoritmoProduccion(self.elementos_gramatica.separar(keypred[5:len(keypred)]))
-                    
+               
         codigo.append("        else: self.errorSintaxis( "+self.cadenaconjunto(nodoNoTerminal)+" )")
         
         return codigo
@@ -119,7 +123,7 @@ class generarCodigoAnalizador:
             self.lexico.fila_token= self.lexico.size
             return ("fin de archivo")
         
-        print(\"No se reconoce token\",lexema_token,self.lexico.lastToken)
+        #print(\"No se reconoce token\",lexema_token,self.lexico.lastToken)
     
     def salidaConjuntoLexema(self, conjuntoTokens):
         
@@ -128,7 +132,7 @@ class generarCodigoAnalizador:
             
             if conjuntoTokens[c] in ["tkn_char","tkn_str","tkn_caracter","tkn_integer","tkn_real"] or (conjuntoTokens[c] in self.lexico.tokens_pR.keys()) or (conjuntoTokens[c] =="id"):
                 conjuntoTokens[c]=self.salidaLexema(conjuntoTokens[c])
-
+            
             
         conjuntoTokens.sort()
 
@@ -144,6 +148,7 @@ class generarCodigoAnalizador:
 
     
     def seEsperaba(self,lexema_token):
+        
         if (lexema_token == "tkn_integer") or (lexema_token == "tkn_str") or (lexema_token == "tkn_real") or (lexema_token == "tkn_char") or (lexema_token == "id"):
             return self.lexico.lexema_token
         else: return(self.salidaLexema(lexema_token))
@@ -155,7 +160,7 @@ class generarCodigoAnalizador:
         codigo.append("    def errorSintaxis(self,conjunto):")
         codigo.append("        if (self.errorSintacticoEncontrado==True):")
         codigo.append("            return(self.resultado)")
-        codigo.append("        print(self.token,conjunto)")
+        #codigo.append("        print(self.token,conjunto)")
         error ="\"<\"+self.lexico.fila_token+\":\"+self.lexico.columna_token+\"> Error sintactico: se encontro: \\\"\"+t+\"\\\"; se esperaba: \"+ \", \".join(self.salidaConjuntoLexema(conjunto))+\".\""
         codigo.append("        t=self.seEsperaba(self.token)")
         codigo.append("        self.resultado="+error)

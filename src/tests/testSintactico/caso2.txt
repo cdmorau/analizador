@@ -1,0 +1,7 @@
+inicio
+caso variable
+1,2:
+ escriba "efe"
+3:
+escriba "ñao"
+fin

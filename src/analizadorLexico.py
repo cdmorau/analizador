@@ -6,6 +6,8 @@ import copy
 class Lexer:
 
     def __init__(self,codigo):
+        for i in range(len(codigo)):
+            codigo[i] = codigo[i].replace("\t", " " * 4)
         
         self.size=str(len(codigo)+1)
         
@@ -129,6 +131,8 @@ class Lexer:
             'expresion_palabra_reservada': re.compile('|'.join(re.escape(k) for k in self.tokens_pR.keys())),
             'expresion_operador': re.compile('|'.join(re.escape(k) for k in self.operadores_tokens.keys()))
         }
+        
+        
   
     def palabra_reservada(self):
         return "<"+self.lexema +","+str(self.fila)+","+str(self.columna)+">"
@@ -268,6 +272,7 @@ class Lexer:
         return codigo_sin_comentarios.split('\n')
     
     def reemplazar_comentarios2(self):
+    
         
         #Si encuentro un comentario de linea al principio lo elimino
         if re.match(r'\/\/.*',self.linea):
@@ -349,6 +354,7 @@ class Lexer:
         elif self.lastToken=="<final de archivo>":
             self.fila_token = str(int(self.fila_token)+1)
             self.columna_token = "1"
+            self.fila_token = self.size
         
         return self.tipo_token
         
