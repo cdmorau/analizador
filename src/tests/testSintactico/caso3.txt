@@ -1,0 +1,11 @@
+inicio
+  caso variable
+  1,2,3:
+     escriba("7w7")
+  4,var:
+     escriba "a"
+  sino:                        
+     escriba("No sé qué número es :/")
+     
+  fin caso
+fin

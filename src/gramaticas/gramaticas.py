@@ -149,7 +149,7 @@ estructuraGeneral = {
     # Derivados de A
     # n1<-(2/3)*5+2^2
     'B':['idÁtkn_assignÍ'],
-    'C':['casoŪtkn_integerĂtkn_colonŬĞĬ'],
+    'C':['casoŪṆĂtkn_colonŬĞĬ'],
     'E':['Ḍ'],
     'L':['idÈÒ'],
     'H':['siĿentoncesĔḊ'],
@@ -169,9 +169,10 @@ estructuraGeneral = {
     'T':['paraŪtkn_assignÀhastaṂhagaṬÛpara'],
 
     #Estructura de caso
-    'Ğ':['tkn_integerĂtkn_colonŬĞ','ε'],
+    'Ğ':['ṆĂtkn_colonŬĞ','ε'],
+    'Ṇ':['tkn_integer','tkn_real','tkn_char','tkn_str','verdadero','falso'],
     'Ĭ':['sinoṬÛcaso','Ûcaso'],
-    'Ă':['Ztkn_integerĂ','ε'],
+    'Ă':['ZṆĂ','ε'],
     
     
     #Estructura del si 
@@ -213,58 +214,7 @@ estructuraGeneral = {
     'Ḍ':['ÍÚ'],
     'Ú':['ZÍÚ','ε'],
     #FIN DEFINICION DE VALOR
-    
-    
-    
-    #'Ạ':['QḂ','ε'],
-    
-    
-    
-    
-    
-    
-    # Dentro de parentesis y habiendo pasado por un relacional
-    #'Ị':['ÉḄ','tkn_opening_parÍtkn_closing_parḄ','tkn_minusỊ'],
-    
-    
-    
-    
-    #Version clonada para operaciones que se encuentran dentro de parentesis que evitan que O acepte la palabra fin
-    
-    # 'Ä':['QË','ÆỊ','ε'],
-    # #Version donde ya paso por un operador relacional
-    # 'Ȧ':['ÉẠ','tkn_opening_parËtkn_closing_parẠ','tkn_minusȦ'],
-    # 'Ạ':['QȦ','ε'],
-    #Version donde ya paso por un operador relacional y está entre parentesispppppppppppp
-    # 'Ị':['ÉỤ','tkn_opening_parËtkn_closing_parỤ','tkn_minusỊ'],
-    # 'Ụ':['QỊ','ε'],
 
-
-    # PALABRAS AISLADAS
-    'Ū':['id'],
-    'Û':['fin'],
-    'Z':['tkn_comma'],
-    #Palabras reservadas de tipos de dato   
-    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJtkn_integerO','arregloJtkn_integerÊOdeG','id'],
-    #Abre corchete cuadrado
-    'J':['tkn_opening_bra'],
-    #Cierra corchete cuadrado
-    'O':['tkn_closing_bra'],
-    #Enteros seguidos de enteros para la declaración de arreglos multidimencionales
-    'Ê':['Ztkn_integerÊ','ε'],
-    #Comas que separan G id dentro de los registros 
-
-        
-    #A dentro de un caso
-    #'Ḫ': ['BḪ','CḪ','escribaEḪ','leaLḪ','HḪ','llamarNḪ','MḪ','IḪ','TḪ','ε'],   
-    #ara A dentro de un si
-    #'Ĕ': ['BĔ','CĔ','escribaEĔ','leaLĔ','HĔ','llamarNĔ','MĔ','IĔ','TĔ','ε'],
-    #ara cuando está
-    #'Ŭ': ['BŬ','CŬ','escribaEŬ','leaLŬ','HŬ','llamarNŬ','MŬ','IŬ','TŬ','ε'],
-    #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
-
-
-    #VERSION AUXILIAR DE VALOR para if
 
     # Antes de un numero tkn_assign,[,(,si,mientras,haga, "," mientras
     'Ṃ':['ÉṀ','tkn_opening_parËtkn_closing_parṀ','tkn_minusṂ'],
@@ -318,7 +268,60 @@ estructuraGeneral = {
     'Ĵ':['ZÍĴ','ε'],
     'Ṿ':['ÍĴ','ε'],
     
+    # PALABRAS AISLADAS
+    'Ū':['id'],
+    'Û':['fin'],
+    'Z':['tkn_comma'],
+    #Palabras reservadas de tipos de dato   
+    'G':['entero' , 'real', 'caracter' , 'booleano' , 'cadenaJtkn_integerO','arregloJtkn_integerÊOdeG','id'],
+    #Abre corchete cuadrado
+    'J':['tkn_opening_bra'],
+    #Cierra corchete cuadrado
+    'O':['tkn_closing_bra'],
+    #Enteros seguidos de enteros para la declaración de arreglos multidimencionales
+    'Ê':['Ztkn_integerÊ','ε'],
+    #Comas que separan G id dentro de los registros 
+    
+        
+    
+    
+    #'Ạ':['QḂ','ε'],
+    
+    
+    
+    
+    
+    
+    # Dentro de parentesis y habiendo pasado por un relacional
+    #'Ị':['ÉḄ','tkn_opening_parÍtkn_closing_parḄ','tkn_minusỊ'],
+    
+    
+    
+    
+    #Version clonada para operaciones que se encuentran dentro de parentesis que evitan que O acepte la palabra fin
+    
+    # 'Ä':['QË','ÆỊ','ε'],
+    # #Version donde ya paso por un operador relacional
+    # 'Ȧ':['ÉẠ','tkn_opening_parËtkn_closing_parẠ','tkn_minusȦ'],
+    # 'Ạ':['QȦ','ε'],
+    #Version donde ya paso por un operador relacional y está entre parentesispppppppppppp
+    # 'Ị':['ÉỤ','tkn_opening_parËtkn_closing_parỤ','tkn_minusỊ'],
+    # 'Ụ':['QỊ','ε'],
 
+
+    
+
+        
+    #A dentro de un caso
+    #'Ḫ': ['BḪ','CḪ','escribaEḪ','leaLḪ','HḪ','llamarNḪ','MḪ','IḪ','TḪ','ε'],   
+    #ara A dentro de un si
+    #'Ĕ': ['BĔ','CĔ','escribaEĔ','leaLĔ','HĔ','llamarNĔ','MĔ','IĔ','TĔ','ε'],
+    #ara cuando está
+    #'Ŭ': ['BŬ','CŬ','escribaEŬ','leaLŬ','HŬ','llamarNŬ','MŬ','IŬ','TŬ','ε'],
+    #Antes del inicio R=registros V = variables F= Funciones P=Procedimientos W=Eliminacion de recursividad
+
+
+    #VERSION AUXILIAR DE VALOR para if
 
 }
 

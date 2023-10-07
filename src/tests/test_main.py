@@ -95,6 +95,7 @@ def test_getnew(entrada):
         ("caso2"),
         ("registroos"),
         ("otrocaso"),
+        ("caso3"),
       
     ]
 )
